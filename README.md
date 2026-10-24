@@ -215,6 +215,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
+## 👥 Contributors
+androidTVDebloater started as a fork of [tv-vibehack](https://github.com/ToomRamcharan/tv-vibehack). Thanks to the people who built it:
+- [Gathin23](https://github.com/Gathin23)
+- [ToomRamcharan](https://github.com/ToomRamcharan)
+
+---
+
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
 Outfit typeface licensed under SIL Open Font License.
