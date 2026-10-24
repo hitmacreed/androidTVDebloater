@@ -62,7 +62,54 @@ Changed your mind? The **Restore** option puts the TV back to how it was and rem
 - **Windows:** click **More info**, then **Run anyway**.
 - **Mac:** if it says the app can't be opened, go to **System Settings → Privacy & Security** and click **Open Anyway** (on older macOS: right-click the app and choose **Open**).
 
-Prefer to do it by hand? The **Quick Start** below is the manual alternative. Want to work on the app itself? See [`installer/README.md`](installer/README.md).
+Prefer to do it by hand? The **Manual install** below does the same steps with adb. Want to work on the app itself? See [`installer/README.md`](installer/README.md).
+
+---
+
+## 🛠️ Manual install (adb)
+
+### 1. Enable ADB on your Android TV
+1. On the TV: **Settings** → **System** → **About** → Click **Build** 7 times to enable Developer Options.
+2. Go to **Settings** → **System** → **Developer Options** → Turn on **USB Debugging** (and Network Debugging if available).
+3. Connect your computer to the same Wi-Fi network as the TV.
+
+### 2. Connect via ADB
+```bash
+adb connect <TV_IP_ADDRESS>:5555
+```
+Accept the *"Always allow from this computer"* dialog on your TV.
+
+### 3. Safe Debloat
+Safely disable ad-trackers and bloatware using model-specific profiles:
+```bash
+# Example for Acer / Realtek QLED Android 14 TVs
+adb shell pm disable-user --user 0 com.google.android.tvrecommendations
+```
+*(See [`examples/`](examples/) for model-specific profiles).*
+
+### 4. Build & Install the Launcher
+Needs JDK 17 and the Android SDK (point `JAVA_HOME` at JDK 17 if your default Java is different). More build details in [`launcher/README.md`](launcher/README.md).
+```bash
+cd launcher
+./gradlew assembleDebug
+adb -s <TV_IP_ADDRESS>:5555 install -r app/build/outputs/apk/debug/app-debug.apk
+```
+Pass `-s` whenever a phone is also plugged in, or adb stops with "more than one device".
+
+If the install fails with "not enough space", run `adb shell pm trim-caches 999G` to clear app caches. If it stalls partway on weak Wi-Fi, copy the APK onto a USB stick and install it from the TV's file app.
+
+### 5. Make It the Home Screen
+**Android 14 Google TV:** enable the accessibility interceptor. Never disable the stock launcher here.
+```bash
+adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
+adb shell settings put secure accessibility_enabled 1
+```
+
+**Android 9–11 (e.g. Xiaomi Mi Box 3, Mi TV):** the interceptor doesn't apply. Disable the stock launcher instead; this is safe on these versions and can be undone:
+```bash
+adb shell pm disable-user --user 0 com.google.android.tvlauncher
+# undo: adb shell pm enable com.google.android.tvlauncher
+```
 
 ---
 
@@ -133,53 +180,6 @@ Choices are saved on the TV and survive reboots and app updates.
 
 ### 6. 🌐 11 Languages, No Religion, No Festivals
 The launcher follows the TV's language: English, Portuguese, Spanish, French, Italian, German, Dutch, Russian, Chinese (Simplified), Telugu and Hindi. The home screen shows a simple time-of-day greeting ("Good morning! Welcome") with the clock and date. Unsupported languages fall back to English.
-
----
-
-## 🚀 Quick Start
-
-### 1. Enable ADB on your Android TV
-1. On the TV: **Settings** → **System** → **About** → Click **Build** 7 times to enable Developer Options.
-2. Go to **Settings** → **System** → **Developer Options** → Turn on **USB Debugging** (and Network Debugging if available).
-3. Connect your computer to the same Wi-Fi network as the TV.
-
-### 2. Connect via ADB
-```bash
-adb connect <TV_IP_ADDRESS>:5555
-```
-Accept the *"Always allow from this computer"* dialog on your TV.
-
-### 3. Safe Debloat
-Safely disable ad-trackers and bloatware using model-specific profiles:
-```bash
-# Example for Acer / Realtek QLED Android 14 TVs
-adb shell pm disable-user --user 0 com.google.android.tvrecommendations
-```
-*(See [`examples/`](examples/) for model-specific profiles).*
-
-### 4. Build & Install the Launcher
-Needs JDK 17 and the Android SDK (point `JAVA_HOME` at JDK 17 if your default Java is different). More build details in [`launcher/README.md`](launcher/README.md).
-```bash
-cd launcher
-./gradlew assembleDebug
-adb -s <TV_IP_ADDRESS>:5555 install -r app/build/outputs/apk/debug/app-debug.apk
-```
-Pass `-s` whenever a phone is also plugged in, or adb stops with "more than one device".
-
-If the install fails with "not enough space", run `adb shell pm trim-caches 999G` to clear app caches. If it stalls partway on weak Wi-Fi, copy the APK onto a USB stick and install it from the TV's file app.
-
-### 5. Make It the Home Screen
-**Android 14 Google TV:** enable the accessibility interceptor. Never disable the stock launcher here.
-```bash
-adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
-adb shell settings put secure accessibility_enabled 1
-```
-
-**Android 9–11 (e.g. Xiaomi Mi Box 3, Mi TV):** the interceptor doesn't apply. Disable the stock launcher instead; this is safe on these versions and can be undone:
-```bash
-adb shell pm disable-user --user 0 com.google.android.tvlauncher
-# undo: adb shell pm enable com.google.android.tvlauncher
-```
 
 ---
 
