@@ -6,7 +6,10 @@ use crate::detect::{
 };
 use crate::tv::{Tv, TvError};
 
-const PACKAGE: &str = "com.gathin.tvhome";
+const PACKAGE: &str = "com.hitmacreed.androidtvdebloater";
+/// The launcher's package before the androidTVDebloater rename. Android treats it as another
+/// app, so TVs set up earlier would end up with two launchers unless it is removed.
+const OLD_PACKAGE: &str = "com.gathin.tvhome";
 const A11Y_KEY: &str = "enabled_accessibility_services";
 pub(crate) const NOT_HOME: &str =
     "The launcher was installed but isn't set as home yet. Try again.";
@@ -73,7 +76,10 @@ pub fn install_flow(
         Support::Unsupported(msg) => return Err(FlowError::Unsupported(msg)),
     };
 
-    run_step(report, Step::Install, || install(tv, apk, allow_replace))?;
+    run_step(report, Step::Install, || {
+        install(tv, apk, allow_replace)?;
+        remove_old_package(tv)
+    })?;
     run_step(report, Step::Permissions, || grant_permissions(tv))?;
     run_step(report, Step::Home, || set_home(tv, method))?;
     run_step(report, Step::Open, || {
@@ -139,7 +145,11 @@ fn restore_launchers(tv: &mut dyn Tv) -> Result<(), FlowError> {
 
 fn uninstall(tv: &mut dyn Tv) -> Result<(), FlowError> {
     let installed = parse_packages(&tv.shell("pm list packages")?);
-    if !installed.iter().any(|p| p == PACKAGE) {
+    let ours: Vec<&str> = [PACKAGE, OLD_PACKAGE]
+        .into_iter()
+        .filter(|o| installed.iter().any(|p| p == o))
+        .collect();
+    if ours.is_empty() {
         return Ok(());
     }
     // Without the launcher and with no stock home screen enabled, the TV would have no home at all.
@@ -149,19 +159,35 @@ fn uninstall(tv: &mut dyn Tv) -> Result<(), FlowError> {
     if ![LAUNCHERX, TVLAUNCHER, PATCHWALL].into_iter().any(usable) {
         return Err(FlowError::Failed(NO_STOCK_HOME.into()));
     }
-    tv.shell(&format!("pm uninstall {PACKAGE}"))?;
-    if is_installed(tv)? {
-        return Err(FlowError::Failed(NOT_REMOVED.into()));
+    for pkg in &ours {
+        tv.shell(&format!("pm uninstall {pkg}"))?;
+    }
+    for pkg in &ours {
+        if has_package(tv, pkg)? {
+            return Err(FlowError::Failed(NOT_REMOVED.into()));
+        }
     }
     Ok(())
 }
 
 fn is_installed(tv: &mut dyn Tv) -> Result<bool, FlowError> {
-    let ours = format!("package:{PACKAGE}");
+    has_package(tv, PACKAGE)
+}
+
+fn has_package(tv: &mut dyn Tv, pkg: &str) -> Result<bool, FlowError> {
+    let line = format!("package:{pkg}");
     Ok(tv
-        .shell(&format!("pm list packages {PACKAGE}"))?
+        .shell(&format!("pm list packages {pkg}"))?
         .lines()
-        .any(|l| l.trim() == ours))
+        .any(|l| l.trim() == line))
+}
+
+/// Runs only after the new launcher installed, so the TV is never left without one.
+fn remove_old_package(tv: &mut dyn Tv) -> Result<(), FlowError> {
+    if has_package(tv, OLD_PACKAGE)? {
+        tv.shell(&format!("pm uninstall {OLD_PACKAGE}"))?;
+    }
+    Ok(())
 }
 
 /// `adb shell` runs the command through `sh -c`, so values with `$` must be single-quoted.
@@ -278,19 +304,23 @@ mod tests {
     use super::*;
     use crate::fake::FakeTv;
 
-    const OURS: &str = "package:com.gathin.tvhome\n";
+    const OURS: &str = "package:com.hitmacreed.androidtvdebloater\n";
 
     fn base(model: &str, sdk: &str, packages: &str, disabled: &str) -> FakeTv {
         FakeTv::new()
             .on("getprop ro.product.model", model)
             .on("getprop ro.build.version.sdk", sdk)
-            .on("pm list packages com.gathin.tvhome", OURS)
+            .on("pm list packages com.hitmacreed.androidtvdebloater", OURS)
             .on("pm list packages -d", disabled)
             .on("pm list packages", packages)
-            .after("install", "pm list packages com.gathin.tvhome", OURS)
             .after(
-                "pm uninstall com.gathin.tvhome",
-                "pm list packages com.gathin.tvhome",
+                "install",
+                "pm list packages com.hitmacreed.androidtvdebloater",
+                OURS,
+            )
+            .after(
+                "pm uninstall com.hitmacreed.androidtvdebloater",
+                "pm list packages com.hitmacreed.androidtvdebloater",
                 "",
             )
     }
@@ -300,6 +330,15 @@ mod tests {
             "Acer TV",
             "34",
             "package:com.google.android.apps.tv.launcherx\npackage:com.google.android.tvlauncher\n",
+            "",
+        )
+    }
+
+    fn acer_tv_with_old_package() -> FakeTv {
+        base(
+            "Acer TV",
+            "34",
+            "package:com.google.android.apps.tv.launcherx\npackage:com.gathin.tvhome\n",
             "",
         )
     }
@@ -421,11 +460,11 @@ mod tests {
         assert!(r.is_ok());
         assert!(has(
             &tv,
-            "pm grant com.gathin.tvhome android.permission.WRITE_SECURE_SETTINGS"
+            "pm grant com.hitmacreed.androidtvdebloater android.permission.WRITE_SECURE_SETTINGS"
         ));
         assert!(has(
             &tv,
-            "appops set com.gathin.tvhome SYSTEM_ALERT_WINDOW allow"
+            "appops set com.hitmacreed.androidtvdebloater SYSTEM_ALERT_WINDOW allow"
         ));
     }
 
@@ -490,7 +529,7 @@ mod tests {
         let un = tv
             .log
             .iter()
-            .position(|c| c == "pm uninstall com.gathin.tvhome")
+            .position(|c| c == "pm uninstall com.hitmacreed.androidtvdebloater")
             .unwrap();
         let installs: Vec<usize> = tv
             .log
@@ -732,17 +771,17 @@ mod tests {
     #[test]
     fn restore_uninstalls_launcher_then_goes_home() {
         let tv = untouched_tv()
-            .on("pm list packages com.gathin.tvhome", OURS)
+            .on("pm list packages com.hitmacreed.androidtvdebloater", OURS)
             .on("pm list packages -d", "")
             .on("pm list packages", &format!("{OURS}package:{TVLAUNCHER}\n"))
             .after(
-                "pm uninstall com.gathin.tvhome",
-                "pm list packages com.gathin.tvhome",
+                "pm uninstall com.hitmacreed.androidtvdebloater",
+                "pm list packages com.hitmacreed.androidtvdebloater",
                 "",
             );
         let (tv, r) = run_restore(tv);
         assert!(r.is_ok());
-        let un = index(&tv, "pm uninstall com.gathin.tvhome");
+        let un = index(&tv, "pm uninstall com.hitmacreed.androidtvdebloater");
         let home = index(&tv, "input keyevent KEYCODE_HOME");
         assert!(un < home);
     }
@@ -750,7 +789,7 @@ mod tests {
     #[test]
     fn restore_keeps_launcher_when_no_stock_home_is_usable() {
         let mut tv = untouched_tv()
-            .on("pm list packages com.gathin.tvhome", OURS)
+            .on("pm list packages com.hitmacreed.androidtvdebloater", OURS)
             .on("pm list packages -d", &format!("package:{TVLAUNCHER}\n"))
             .on("pm list packages", &format!("{OURS}package:{TVLAUNCHER}\n"));
         let mut events = vec![];
@@ -767,13 +806,59 @@ mod tests {
     #[test]
     fn restore_reports_launcher_that_would_not_uninstall() {
         let tv = untouched_tv()
-            .on("pm list packages com.gathin.tvhome", OURS)
+            .on("pm list packages com.hitmacreed.androidtvdebloater", OURS)
             .on("pm list packages -d", "")
             .on("pm list packages", &format!("{OURS}package:{TVLAUNCHER}\n"));
         let (tv, r) = run_restore(tv);
         assert_eq!(r, Err(FlowError::Failed(NOT_REMOVED.into())));
-        assert!(has(&tv, "pm uninstall com.gathin.tvhome"));
+        assert!(has(&tv, "pm uninstall com.hitmacreed.androidtvdebloater"));
         assert!(!has(&tv, "input keyevent KEYCODE_HOME"));
+    }
+
+    #[test]
+    fn install_removes_old_package_after_installing() {
+        let tv = acer_tv_with_old_package();
+        let (tv, r) = run_install(tv, false);
+        assert!(r.is_ok());
+        let install = tv.log.iter().position(|c| c == "install").unwrap();
+        let un = index(&tv, "pm uninstall com.gathin.tvhome");
+        assert!(install < un);
+    }
+
+    #[test]
+    fn install_leaves_old_package_when_install_fails() {
+        let mut tv = acer_tv_with_old_package();
+        tv.install_results.push_back(Err(TvError::InstallFailed(
+            "Failure [INSTALL_FAILED_OLDER_SDK]".into(),
+        )));
+        let (tv, r) = run_install(tv, false);
+        assert!(r.is_err());
+        assert!(!has(&tv, "pm uninstall com.gathin.tvhome"));
+    }
+
+    #[test]
+    fn install_without_old_package_uninstalls_nothing() {
+        let (tv, r) = run_install(acer_tv(), false);
+        assert!(r.is_ok());
+        assert!(!tv.log.iter().any(|c| c.starts_with("pm uninstall")));
+    }
+
+    #[test]
+    fn restore_uninstalls_old_package_too() {
+        let old = "package:com.gathin.tvhome\n";
+        let tv = untouched_tv()
+            .on("pm list packages com.gathin.tvhome", old)
+            .on("pm list packages -d", "")
+            .on("pm list packages", &format!("{old}package:{TVLAUNCHER}\n"))
+            .after(
+                "pm uninstall com.gathin.tvhome",
+                "pm list packages com.gathin.tvhome",
+                "",
+            );
+        let (tv, r) = run_restore(tv);
+        assert!(r.is_ok());
+        assert!(has(&tv, "pm uninstall com.gathin.tvhome"));
+        assert!(!has(&tv, "pm uninstall com.hitmacreed.androidtvdebloater"));
     }
 
     #[test]
