@@ -144,11 +144,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
         });
 
-        // Liquid feel: soft springs on the highlight's position.
+        // Liquid feel: springs on the highlight's position. Kept firm on purpose: the old soft,
+        // bouncy spring (260 / 0.58) wobbled for ~1 s and pushed weak TV GPUs (TCL Android 14)
+        // to ~19 ms per frame; 600 / 0.75 still slides with a small overshoot and stays at ~8 ms.
         springX = new SpringAnimation(glass, DynamicAnimation.TRANSLATION_X);
         springY = new SpringAnimation(glass, DynamicAnimation.TRANSLATION_Y);
         for (SpringAnimation s : new SpringAnimation[]{springX, springY}) {
-            s.setSpring(new SpringForce().setStiffness(260f).setDampingRatio(0.58f));
+            s.setSpring(new SpringForce().setStiffness(600f).setDampingRatio(0.75f));
         }
 
         View btnInputs = findViewById(R.id.btnInputs);
@@ -180,6 +182,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
     }
 
+    /**
+     * Builds the tiles below the first screen one at a time while the app is idle. Each tile costs
+     * ~8 ms to inflate on the TCL TV, so creating a whole row on the first Down press stuttered.
+     */
+    private void prewarmTiles() {
+        RecyclerView.RecycledViewPool pool = grid.getRecycledViewPool();
+        int want = adapter.getItemCount();
+        pool.setMaxRecycledViews(0, want);
+        Looper.myQueue().addIdleHandler(() -> {
+            if (isDestroyed() || grid.getChildCount() + pool.getRecycledViewCount(0) >= want) return false;
+            pool.putRecycledView(adapter.createViewHolder(grid, 0));
+            return true;
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -189,6 +206,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setAlpha(0f);
         ambient.setAlpha(0f);
         adapter.reload();
+        prewarmTiles();
         grid.scheduleLayoutAnimation();
         updateGreeting();
         updateFatherGreeting();
