@@ -30,10 +30,10 @@ read -p "Enter choice [1-5]: " CHOICE
 case "${CHOICE}" in
   1)
     echo "Activating NLRC Custom UI..."
-    adb -s "${TV_SERIAL}" shell settings put secure enabled_accessibility_services com.gathin.tvhome/.HomeKeyService
+    adb -s "${TV_SERIAL}" shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
     adb -s "${TV_SERIAL}" shell settings put secure accessibility_enabled 1
-    adb -s "${TV_SERIAL}" shell appops set com.gathin.tvhome SYSTEM_ALERT_WINDOW allow
-    adb -s "${TV_SERIAL}" shell am start -n com.gathin.tvhome/.MainActivity
+    adb -s "${TV_SERIAL}" shell appops set com.hitmacreed.androidtvdebloater SYSTEM_ALERT_WINDOW allow
+    adb -s "${TV_SERIAL}" shell am start -n com.hitmacreed.androidtvdebloater/.MainActivity
     echo "NLRC Custom UI successfully activated!"
     ;;
   2)

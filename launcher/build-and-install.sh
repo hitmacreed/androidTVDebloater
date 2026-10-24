@@ -45,8 +45,8 @@ fi
 printf '%s\n' \
   "pm install -r /data/local/tmp/tvhome.apk" \
   "rm -f /data/local/tmp/tvhome.apk" \
-  "pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
-  "cmd package set-home-activity --user 0 com.gathin.tvhome" \
+  "pm grant com.hitmacreed.androidtvdebloater android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
+  "cmd package set-home-activity --user 0 com.hitmacreed.androidtvdebloater" \
   "$DISABLE_CMD" \
   | "$PY" -I ../tools/tv.py --batch
 echo "Installed. Press Home on the remote to see it."

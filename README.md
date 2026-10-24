@@ -1,4 +1,4 @@
-# tv-vibehack 📺✨
+# androidTVDebloater 📺✨
 
 > **Transform any ad-bloated Android TV or Google TV into a lightning-fast, tvOS-inspired, fail-safe experience — without root, without bootloop risks, and without losing access to stock features.**
 
@@ -12,7 +12,7 @@
 ## 📐 Architecture & Transformation Overview
 
 ```text
-[ STOCK GOOGLE TV ]                             [ NLRC TV VIBEHACK ]
+[ STOCK GOOGLE TV ]                             [ androidTVDebloater ]
 ┌──────────────────────────────────────┐        ┌──────────────────────────────────────┐
 │  Sponsored Ad Banner (70% Screen)    │        │  NLRC Home · Ambient Clock & Date    │
 │  [Trending Shows] [Paid Promotions]  │        │                                      │
@@ -43,7 +43,7 @@ Modern Smart TVs ship with:
 - **Unremappable sponsored remote buttons** (Netflix, Prime Video) that elderly family members hit by mistake, throwing them into subscription walls.
 - **Overly complicated navigation** that makes switching to Cable/HDMI or playing personal home videos a headache.
 
-**tv-vibehack** solves this permanently. Originally built to give aging parents a distraction-free, one-touch TV experience, it provides a universal blueprint for taking back control of any Android TV without root.
+**androidTVDebloater** solves this permanently. Originally built to give aging parents a distraction-free, one-touch TV experience, it provides a universal blueprint for taking back control of any Android TV without root.
 
 ---
 
@@ -52,7 +52,7 @@ Modern Smart TVs ship with:
 ### 1. 🛡️ The 100% Fail-Safe Architecture (Zero Bootloops)
 On Android 14 Google TV, disabling the stock launcher (`com.google.android.apps.tv.launcherx`) breaks Direct Boot, tripping Android's `RescueParty` service and bricking the TV into a black-screen recovery state.
 
-**tv-vibehack never disables `launcherx`.** Instead:
+**androidTVDebloater never disables `launcherx`.** Instead:
 - The custom launcher is **`directBootAware="true"`**.
 - A lightweight native **Accessibility Service** (`HomeKeyService`) intercepts Home key events and window transitions in under 10ms.
 - If the custom launcher is ever uninstalled or crashes, Google TV seamlessly takes over. **Zero chance of bricking your TV.**
@@ -171,7 +171,7 @@ If the install fails with "not enough space", run `adb shell pm trim-caches 999G
 ### 5. Make It the Home Screen
 **Android 14 Google TV:** enable the accessibility interceptor. Never disable the stock launcher here.
 ```bash
-adb shell settings put secure enabled_accessibility_services com.gathin.tvhome/.HomeKeyService
+adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
 adb shell settings put secure accessibility_enabled 1
 ```
 
@@ -188,12 +188,12 @@ adb shell pm disable-user --user 0 com.google.android.tvlauncher
 | Path | Description |
 |---|---|
 | [`launcher/`](launcher/) | Native Android TV launcher with Apple tvOS aesthetics, D-pad navigation, ambient glow, and Direct Boot awareness. Build notes in [`launcher/README.md`](launcher/README.md). |
-| [`launcher/.../HomeKeyService.java`](launcher/app/src/main/java/com/gathin/tvhome/HomeKeyService.java) | Fail-safe Accessibility Service intercepting Home button and sponsored hotkeys. |
-| [`launcher/.../HdmiHelper.java`](launcher/app/src/main/java/com/gathin/tvhome/HdmiHelper.java) | Direct Realtek / Android TV hardware passthrough input launcher. |
-| [`launcher/.../AppAdapter.java`](launcher/app/src/main/java/com/gathin/tvhome/AppAdapter.java) | App and input tiles, plus the hold-OK menu to pin, reorder and hide tiles. |
-| [`launcher/.../PenDriveActivity.java`](launcher/app/src/main/java/com/gathin/tvhome/PenDriveActivity.java) | Finds videos on TV storage and USB drives and lists them with thumbnails. |
-| [`launcher/.../VideoPlayerActivity.java`](launcher/app/src/main/java/com/gathin/tvhome/VideoPlayerActivity.java) | Full-screen player with remote seek HUD and previous / next video. |
-| [`launcher/.../Fonts.java`](launcher/app/src/main/java/com/gathin/tvhome/Fonts.java) | Re-applies font weights on Android 9, where the variable Outfit font otherwise renders Thin. |
+| [`launcher/.../HomeKeyService.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/HomeKeyService.java) | Fail-safe Accessibility Service intercepting Home button and sponsored hotkeys. |
+| [`launcher/.../HdmiHelper.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/HdmiHelper.java) | Direct Realtek / Android TV hardware passthrough input launcher. |
+| [`launcher/.../AppAdapter.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/AppAdapter.java) | App and input tiles, plus the hold-OK menu to pin, reorder and hide tiles. |
+| [`launcher/.../PenDriveActivity.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/PenDriveActivity.java) | Finds videos on TV storage and USB drives and lists them with thumbnails. |
+| [`launcher/.../VideoPlayerActivity.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/VideoPlayerActivity.java) | Full-screen player with remote seek HUD and previous / next video. |
+| [`launcher/.../Fonts.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/Fonts.java) | Re-applies font weights on Android 9, where the variable Outfit font otherwise renders Thin. |
 | [`launcher/app/src/main/res/values*/`](launcher/app/src/main/res/) | UI text in 11 languages (`strings.xml` per language). |
 | [`examples/acer-v-pro-32-qled/`](examples/acer-v-pro-32-qled/) | Comprehensive teardown and architecture notes for Acer / MOKA Realtek RTD QLED TVs. |
 | [`installer/`](installer/) | **NLRC Setup**, the desktop app (Windows, macOS, Linux) that installs the launcher over Wi-Fi with no terminal. Tauri + Rust backend, Svelte + daisyUI screens. See [`installer/README.md`](installer/README.md). |

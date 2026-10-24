@@ -5,7 +5,7 @@
 # DO NOT DISABLE 'com.google.android.apps.tv.launcherx'.
 # On Android 14 Google TV, disabling the stock launcher triggers RescueParty during
 # Direct Boot (Credential Encrypted storage lock), resulting in a recovery boot loop.
-# tv-vibehack uses HomeKeyService (AccessibilityService) to intercept the Home button
+# androidTVDebloater uses HomeKeyService (AccessibilityService) to intercept the Home button
 # and display the custom launcher safely without disabling the stock launcher.
 #
 # Live TV App: com.tcl.tvinput (Hardware Tuner: HW2)

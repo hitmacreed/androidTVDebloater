@@ -1,6 +1,6 @@
 # 📺 NLRC Home (launcher)
 
-The Android TV launcher at the heart of tv-vibehack. Package `com.gathin.tvhome`, app name **NLRC Home**, version `2.1` (`versionCode 3`).
+The Android TV launcher at the heart of androidTVDebloater. Package `com.hitmacreed.androidtvdebloater`, app name **NLRC Home**, version `2.1` (`versionCode 3`).
 
 What it does for viewers is described in the [root README](../README.md). This file is for building, installing and changing it.
 
@@ -48,7 +48,7 @@ Then make it the home screen. The method depends on the TV:
 
 | TV | Command | Undo |
 |---|---|---|
-| **Android 14 Google TV** (Acer, TCL) | `adb shell pm grant com.gathin.tvhome android.permission.WRITE_SECURE_SETTINGS`<br>`adb shell settings put secure enabled_accessibility_services com.gathin.tvhome/com.gathin.tvhome.HomeKeyService`<br>`adb shell settings put secure accessibility_enabled 1` | `adb shell settings delete secure enabled_accessibility_services` |
+| **Android 14 Google TV** (Acer, TCL) | `adb shell pm grant com.hitmacreed.androidtvdebloater android.permission.WRITE_SECURE_SETTINGS`<br>`adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/com.hitmacreed.androidtvdebloater.HomeKeyService`<br>`adb shell settings put secure accessibility_enabled 1` | `adb shell settings delete secure enabled_accessibility_services` |
 | **Android 9–11** (Mi Box, Mi TV) | `adb shell pm disable-user --user 0 com.google.android.tvlauncher` (Mi TVs with PatchWall: also `com.mitv.tvhome.atv`) | `adb shell pm enable <same package>` |
 
 > ⚠️ **Never disable `com.google.android.apps.tv.launcherx` on Android 14.** It bootloops the TV. `set-home-activity` doesn't stick on Android 9, which is why disabling is used there.
@@ -59,7 +59,7 @@ The `WRITE_SECURE_SETTINGS` grant lets `BootReceiver` switch `HomeKeyService` ba
 
 ## 🗂️ Source map
 
-`app/src/main/java/com/gathin/tvhome/`
+`app/src/main/java/com/hitmacreed/androidtvdebloater/`
 
 | File | Role |
 |---|---|
@@ -94,7 +94,7 @@ Resources live in `app/src/main/res/`. Text is in `values*/strings.xml` in 11 la
 adb exec-out screencap -p > shot.png                       # screenshot (blocked on some Mi TVs →)
 adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | grep -o 'text="[^"]*"'
 adb shell input keyevent --longpress DPAD_CENTER           # opens the tile menu
-adb shell run-as com.gathin.tvhome cat /data/user_de/0/com.gathin.tvhome/shared_prefs/dock.xml
+adb shell run-as com.hitmacreed.androidtvdebloater cat /data/user_de/0/com.hitmacreed.androidtvdebloater/shared_prefs/dock.xml
 ```
 
 The tile menu opens through key repeat in `AppAdapter.Holder`, not a View long-click, which is why `--longpress DPAD_CENTER` works.

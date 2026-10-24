@@ -1,4 +1,4 @@
-package com.gathin.tvhome;
+package com.hitmacreed.androidtvdebloater;
 
 import android.Manifest;
 import android.app.Activity;

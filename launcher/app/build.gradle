@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.gathin.tvhome'
+    namespace 'com.hitmacreed.androidtvdebloater'
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.gathin.tvhome'
+        applicationId 'com.hitmacreed.androidtvdebloater'
         minSdk 26
         targetSdk 29
         versionCode 3

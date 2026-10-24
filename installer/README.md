@@ -1,6 +1,6 @@
 # 🖱️ NLRC Setup
 
-Desktop app (Windows, macOS, Linux) that installs the NLRC launcher (`com.gathin.tvhome`) on an Android TV over Wi-Fi and makes it the home screen, with no terminal and no adb install needed. It can also **Restore** the TV's original home screen.
+Desktop app (Windows, macOS, Linux) that installs the NLRC launcher (`com.hitmacreed.androidtvdebloater`) on an Android TV over Wi-Fi and makes it the home screen, with no terminal and no adb install needed. It can also **Restore** the TV's original home screen.
 
 End users: see **Easy install (no coding)** in the [root README](../README.md). This file is for people working on the app.
 

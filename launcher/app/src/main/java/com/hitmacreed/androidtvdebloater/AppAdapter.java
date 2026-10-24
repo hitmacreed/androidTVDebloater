@@ -1,4 +1,4 @@
-package com.gathin.tvhome;
+package com.hitmacreed.androidtvdebloater;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
