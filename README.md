@@ -35,6 +35,37 @@
 
 ---
 
+## 🖱️ Easy install (no coding)
+
+No terminal needed. Download the **NLRC Setup** app, point it at your TV, and it does the rest. Tested on a Xiaomi Mi Box (Android 9).
+
+1. Open the project's **Releases** page on GitHub and download the file for your computer (available once the first release is published):
+   - **Windows:** the `.exe` or `.msi` installer
+   - **Mac:** the `.dmg`
+   - **Linux:** the `.AppImage` or `.deb`
+2. On the TV, open Settings → System → About and click **Build** 7 times, then in Developer Options turn on **USB debugging** (and **Network debugging** if you see it). Make sure the computer and the TV are on the same Wi-Fi.
+3. Open NLRC Setup, type the TV's IP address (port 5555), accept the prompt that appears on the TV, and follow the steps.
+
+| Pick what to do | Find your TV |
+|---|---|
+| ![NLRC Setup welcome screen with Install and Restore choices](docs/preview/setup-welcome.png) | ![Connect screen listing TVs found on the Wi-Fi](docs/preview/setup-connect.png) |
+| **Install, step by step** | **Done** |
+| ![Install progress checklist](docs/preview/setup-working.png) | ![All set screen](docs/preview/setup-done.png) |
+
+The app works out the right way to make the launcher your home screen for your TV by itself (the Android 14 Google TV way or the Android 9 way), and tells you up front if your TV isn't supported yet. It only works with TVs it can reach over the network. USB is not supported.
+
+The app speaks the same 11 languages as the launcher and follows your computer's language.
+
+Changed your mind? The **Restore** option puts the TV back to how it was and removes the launcher.
+
+**First time you open it:** the app isn't signed with a paid developer certificate, so your computer will warn you.
+- **Windows:** click **More info**, then **Run anyway**.
+- **Mac:** if it says the app can't be opened, go to **System Settings → Privacy & Security** and click **Open Anyway** (on older macOS: right-click the app and choose **Open**).
+
+Prefer to do it by hand? The **Quick Start** below is the manual alternative. Want to work on the app itself? See [`installer/README.md`](installer/README.md).
+
+---
+
 ## 🎯 The Motivation
 
 Modern Smart TVs ship with:
@@ -102,37 +133,6 @@ Choices are saved on the TV and survive reboots and app updates.
 
 ### 6. 🌐 11 Languages, No Religion, No Festivals
 The launcher follows the TV's language: English, Portuguese, Spanish, French, Italian, German, Dutch, Russian, Chinese (Simplified), Telugu and Hindi. The home screen shows a simple time-of-day greeting ("Good morning! Welcome") with the clock and date. Unsupported languages fall back to English.
-
----
-
-## 🖱️ Easy install (no coding)
-
-No terminal needed. Download the **NLRC Setup** app, point it at your TV, and it does the rest. Tested on a Xiaomi Mi Box (Android 9).
-
-1. Open the project's **Releases** page on GitHub and download the file for your computer (available once the first release is published):
-   - **Windows:** the `.exe` or `.msi` installer
-   - **Mac:** the `.dmg`
-   - **Linux:** the `.AppImage` or `.deb`
-2. On the TV, open Settings → System → About and click **Build** 7 times, then in Developer Options turn on **USB debugging** (and **Network debugging** if you see it). Make sure the computer and the TV are on the same Wi-Fi.
-3. Open NLRC Setup, type the TV's IP address (port 5555), accept the prompt that appears on the TV, and follow the steps.
-
-| Pick what to do | Find your TV |
-|---|---|
-| ![NLRC Setup welcome screen with Install and Restore choices](docs/preview/setup-welcome.png) | ![Connect screen listing TVs found on the Wi-Fi](docs/preview/setup-connect.png) |
-| **Install, step by step** | **Done** |
-| ![Install progress checklist](docs/preview/setup-working.png) | ![All set screen](docs/preview/setup-done.png) |
-
-The app works out the right way to make the launcher your home screen for your TV by itself (the Android 14 Google TV way or the Android 9 way), and tells you up front if your TV isn't supported yet. It only works with TVs it can reach over the network. USB is not supported.
-
-The app speaks the same 11 languages as the launcher and follows your computer's language.
-
-Changed your mind? The **Restore** option puts the TV back to how it was and removes the launcher.
-
-**First time you open it:** the app isn't signed with a paid developer certificate, so your computer will warn you.
-- **Windows:** click **More info**, then **Run anyway**.
-- **Mac:** if it says the app can't be opened, go to **System Settings → Privacy & Security** and click **Open Anyway** (on older macOS: right-click the app and choose **Open**).
-
-Prefer to do it by hand? The **Quick Start** below is the manual alternative. Want to work on the app itself? See [`installer/README.md`](installer/README.md).
 
 ---
 
