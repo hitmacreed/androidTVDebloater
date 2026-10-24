@@ -3,7 +3,7 @@
 **Device Identifier:** `AR32QDXGU2841AT` (Amazon ASIN `B0D9BYGT8J`)  
 **Motherboard / Board Platform:** MOKA / SCBC `R3G` (`com.mk.tv.fivekey`), Realtek RTD Chipset  
 **OS:** Android 14 (API Level 34, Build `UKR1.250803`)  
-**Custom Launcher:** NLRC Home (`com.gathin.tvhome`)  
+**Custom Launcher:** NLRC Home (`com.hitmacreed.androidtvdebloater`)  
 **Verified Configuration:** Stock Google TV intact · Direct Boot Aware · Hardware Remote Remapped · TV Storage Offline Media
 
 ---
@@ -68,7 +68,7 @@ On Android 14 (API 34), doing this triggers a catastrophic failure:
 To eliminate all boot-loop risks and guarantee that the custom launcher is immortal and indestructible:
 
 1. **Stock Launcher Stays 100% Intact:** `com.google.android.apps.tv.launcherx` is **NEVER** disabled. Android's internal watchdog and RescueParty stay completely satisfied.
-2. **Direct Boot Aware Everywhere:** `com.gathin.tvhome` marks all critical components with `android:directBootAware="true"` in `AndroidManifest.xml`:
+2. **Direct Boot Aware Everywhere:** `com.hitmacreed.androidtvdebloater` marks all critical components with `android:directBootAware="true"` in `AndroidManifest.xml`:
    ```xml
    <activity
        android:name=".MainActivity"
@@ -84,7 +84,7 @@ To eliminate all boot-loop risks and guarantee that the custom launcher is immor
 3. **Dual-Interception Mechanism:**
    - **`HomeKeyService` (Accessibility Service):** Intercepts `KEYCODE_HOME` events before `launcherx` can consume them. It also listens for `TYPE_WINDOW_STATE_CHANGED` on `com.google.android.apps.tv.launcherx`. Whenever the stock Google TV launcher attempts to display, NLRC intercepts it in <10ms and brings the clean home screen to the foreground.
    - **`BootReceiver`:** Listens to both `ACTION_BOOT_COMPLETED` and `ACTION_LOCKED_BOOT_COMPLETED` to launch the launcher immediately upon power-on.
-4. **Instant Safe Fallback:** If `com.gathin.tvhome` is ever uninstalled or disabled, stock Google TV immediately takes over without user lockout or factory resets.
+4. **Instant Safe Fallback:** If `com.hitmacreed.androidtvdebloater` is ever uninstalled or disabled, stock Google TV immediately takes over without user lockout or factory resets.
 
 ---
 

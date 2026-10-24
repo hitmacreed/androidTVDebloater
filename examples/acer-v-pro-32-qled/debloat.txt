@@ -5,7 +5,7 @@
 # DO NOT ADD 'com.google.android.apps.tv.launcherx' TO THIS LIST.
 # On Android 14 Google TV, disabling the stock launcher causes RescueParty to trigger
 # during Direct Boot (Credential Encrypted storage lock), causing a boot loop or black screen.
-# tv-vibehack uses HomeKeyService (AccessibilityService) to override the home screen safely
+# androidTVDebloater uses HomeKeyService (AccessibilityService) to override the home screen safely
 # without ever disabling the stock launcher.
 
 # Advertising / Telemetry / Crash Reporting
