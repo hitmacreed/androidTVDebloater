@@ -197,9 +197,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
     }
 
+    /**
+     * Fresh-screen setup runs here, not in onResume: see-through overlays such as the Google TV
+     * quick-settings panel only pause us, and replaying the intro on their close looked like a relaunch.
+     */
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         glassShown = false;
         glass.setAlpha(0f);
         heroShown = false;
@@ -209,11 +213,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         prewarmTiles();
         grid.scheduleLayoutAnimation();
         updateGreeting();
-        updateFatherGreeting();
-        updateWifiLabel();
-        findViewById(R.id.btnInputs).setVisibility(hasInputs() ? View.VISIBLE : View.GONE);
         BootReceiver.ensureAccessibilityEnabled(this);
-        handler.postDelayed(minuteTick, MINUTE_MS);
 
         // Return to the tile we left from, or the first one.
         grid.post(() -> {
@@ -221,6 +221,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (focused != null && grid.findContainingViewHolder(focused) != null) return;
             focusTile(lastFocused);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Cheap and may have changed under an overlay (e.g. Wi-Fi switched from the quick-settings panel).
+        updateFatherGreeting();
+        updateWifiLabel();
+        findViewById(R.id.btnInputs).setVisibility(hasInputs() ? View.VISIBLE : View.GONE);
+        handler.postDelayed(minuteTick, MINUTE_MS);
     }
 
     @Override
