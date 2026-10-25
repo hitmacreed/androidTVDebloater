@@ -19,6 +19,7 @@ public class HomeKeyService extends AccessibilityService {
 
     private static final String TAG = "HomeKeyService";
     private static final String STOCK_LAUNCHER_PKG = "com.google.android.apps.tv.launcherx";
+    private static final String STOCK_HOME_ACTIVITY = STOCK_LAUNCHER_PKG + ".home.HomeActivity";
     private static final String NETFLIX_PKG = "com.netflix.ninja";
     private static final String PRIME_PKG = "com.amazon.amazonvideo.livingroom";
 
@@ -32,8 +33,12 @@ public class HomeKeyService extends AccessibilityService {
             CharSequence pkgName = event.getPackageName();
             if (pkgName != null) {
                 if (STOCK_LAUNCHER_PKG.contentEquals(pkgName)) {
-                    // Stock Google TV is trying to display its home screen. Intercept and show NLRC.
-                    launchNlrcHome();
+                    // Only the home screen: launcherx also hosts the quick-settings side panel
+                    // (dashboard.DashboardHandler), profile and account screens, which must stay usable.
+                    CharSequence cls = event.getClassName();
+                    if (cls != null && STOCK_HOME_ACTIVITY.contentEquals(cls)) {
+                        launchNlrcHome();
+                    }
                 } else if ((NETFLIX_PKG.contentEquals(pkgName) || PRIME_PKG.contentEquals(pkgName))
                         && HdmiHelper.isAvailable(this)) {
                     // Netflix or Prime Video opened (e.g. from dedicated remote hotkey)

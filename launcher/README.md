@@ -1,6 +1,6 @@
 # 📺 NLRC Home (launcher)
 
-The Android TV launcher at the heart of androidTVDebloater. Package `com.hitmacreed.androidtvdebloater`, app name **NLRC Home**, version `2.1` (`versionCode 3`).
+The Android TV launcher at the heart of androidTVDebloater. Package `com.hitmacreed.androidtvdebloater`, app name **NLRC Home**, version `2.2` (`versionCode 4`).
 
 What it does for viewers is described in the [root README](../README.md). This file is for building, installing and changing it.
 
