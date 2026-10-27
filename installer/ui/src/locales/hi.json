@@ -63,7 +63,6 @@
     "done_install_text": "रिमोट पर **होम** दबाएँ।",
     "done_restore_title": "हो गया",
     "done_restore_text": "आपकी मूल होम स्क्रीन वापस आ गई है।",
-    "close": "बंद करें",
     "generic_error": "कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।",
     "details": "विवरण",
     "unsupported_android": "यह टीवी Google TV के बिना {android} पर चलता है। यह अभी समर्थित नहीं है, इसलिए कुछ नहीं बदला गया।",

@@ -63,7 +63,6 @@
     "done_install_text": "Press **Home** on your remote.",
     "done_restore_title": "All done",
     "done_restore_text": "Your original home screen is back.",
-    "close": "Close",
     "generic_error": "Something went wrong. Please try again.",
     "details": "details",
     "unsupported_android": "This TV runs {android} without Google TV. It isn't supported yet, so nothing was changed.",
