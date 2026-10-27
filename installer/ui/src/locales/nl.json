@@ -67,7 +67,19 @@
     "generic_error": "Er ging iets mis. Probeer het opnieuw.",
     "details": "details",
     "unsupported_android": "Deze tv draait {android} zonder Google TV. Hij wordt nog niet ondersteund, dus er is niets veranderd.",
-    "api_level": "Android (API-niveau {n})"
+    "api_level": "Android (API-niveau {n})",
+    "wallpaper_title": "Achtergrond wijzigen",
+    "wallpaper_text": "Zet een van je foto's achter het NLRC-startscherm.",
+    "rail_wallpaper": "Achtergrond",
+    "bg_title": "Kies een achtergrondfoto",
+    "bg_lead": "De foto blijft scherp en wordt iets donkerder gemaakt, zodat het startscherm goed leesbaar blijft.",
+    "bg_pick": "Kies een foto",
+    "bg_change": "Kies een andere foto",
+    "bg_send": "Als achtergrond instellen",
+    "bg_sending": "Foto wordt naar je tv gestuurd…",
+    "bg_bad_file": "Dat bestand is geen foto die deze app kan openen. Probeer een JPG of PNG.",
+    "done_wallpaper_title": "Achtergrond ingesteld",
+    "done_wallpaper_text": "Kijk op je tv: de nieuwe achtergrond staat op het startscherm."
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "De tv reageerde niet. Controleer of hij aan staat, op hetzelfde wifi-netwerk zit en of je Altijd toestaan hebt gekozen op de tv, en druk dan opnieuw op Verbinden.",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "Deze tv heeft toch Google TV, dus er is niets veranderd aan het startscherm.",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "De startscherm-app van deze tv kon niet worden gecontroleerd, dus er is niets veranderd aan het startscherm.",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "De startscherm-app van deze tv is niet gevonden, dus hij wordt nog niet ondersteund. Er is niets veranderd.",
-    "Couldn't read the TV's Android version": "De Android-versie van de tv kon niet worden gelezen"
+    "Couldn't read the TV's Android version": "De Android-versie van de tv kon niet worden gelezen",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "NLRC is nog niet op deze tv geïnstalleerd. Installeer het eerst en wijzig daarna de achtergrond.",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "Kon de foto niet naar de tv sturen. Controleer of de tv en deze computer in hetzelfde wifi-netwerk zitten en probeer het opnieuw.",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "De tv kon die foto niet openen. Probeer een JPG of PNG."
   }
 }

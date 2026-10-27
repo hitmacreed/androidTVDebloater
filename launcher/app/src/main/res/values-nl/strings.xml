@@ -49,4 +49,29 @@
     <string name="not_available">Niet beschikbaar op deze tv</string>
     <string name="hdmi_switching">Overschakelen naar HDMI 2… 📺</string>
     <string name="hdmi_failed">Kan HDMI 2 niet openen</string>
+
+    <!-- Background photo -->
+    <string name="background">Achtergrond</string>
+    <string name="bg_from_phone">Vanaf je telefoon</string>
+    <string name="bg_default">Standaardachtergrond</string>
+    <string name="bg_set">Achtergrond ingesteld</string>
+    <string name="bg_reset">Standaardachtergrond hersteld</string>
+    <string name="bg_phone_title">Stuur een foto vanaf je telefoon</string>
+    <string name="bg_phone_steps">Scan de code met de camera van je telefoon, of open dit adres op een telefoon in hetzelfde wifi-netwerk als de tv:</string>
+    <string name="bg_phone_code">Code: %1$s</string>
+    <string name="bg_phone_waiting">Wachten op een foto…</string>
+    <string name="bg_phone_receiving">Foto ontvangen…</string>
+    <string name="bg_phone_bad_image">Dat bestand is geen foto die de tv kan openen. Probeer een JPG of PNG.</string>
+    <string name="bg_phone_no_network">Verbind de tv met je netwerk om een foto te sturen.</string>
+    <string name="bg_phone_busy">Kon niet klaarmaken om een foto te ontvangen. Sluit dit scherm en probeer het opnieuw.</string>
+    <string name="web_title">Tv-achtergrond instellen</string>
+    <string name="web_code">Code op de tv</string>
+    <string name="web_pick">Kies een foto</string>
+    <string name="web_send">Als achtergrond instellen</string>
+    <string name="web_sending">Versturen…</string>
+    <string name="web_done">Klaar. Kijk op je tv.</string>
+    <string name="web_wrong_code">Verkeerde code. Controleer de code op de tv.</string>
+    <string name="web_too_big">Die foto is te groot. Kies er een kleiner dan 20 MB.</string>
+    <string name="web_bad_image">De tv kan die foto niet openen. Probeer een JPG of PNG.</string>
+    <string name="web_failed">Kon de foto niet versturen. Controleer of je telefoon in hetzelfde wifi-netwerk zit als de tv.</string>
 </resources>

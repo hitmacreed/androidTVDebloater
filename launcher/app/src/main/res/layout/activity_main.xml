@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="#FF000000">
 
-    <!-- Wallpaper kept faint: the shelf light should read against near-black, as on tvOS. -->
+    <!-- Default wallpaper kept faint so the shelf light reads against near-black, as on tvOS.
+         A user photo (WallpaperStore) is shown at full strength; it is already dimmed when saved. -->
     <ImageView
         android:id="@+id/wallpaper"
         android:layout_width="match_parent"
@@ -20,6 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0" />
+
+    <!-- Only over a user photo: keeps the top bar readable. -->
+    <View
+        android:id="@+id/wallScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_wall_scrim"
+        android:visibility="gone" />
 
     <!-- Fades the shelf light to black behind the dock so the tiles stay readable. -->
     <View
@@ -193,6 +202,13 @@
                         style="@style/TopButton"
                         android:text="@string/wifi"
                         android:drawableStart="@drawable/ic_wifi"
+                        android:nextFocusDown="@+id/grid" />
+
+                    <TextView
+                        android:id="@+id/btnBackground"
+                        style="@style/TopButton"
+                        android:text="@string/background"
+                        android:drawableStart="@drawable/ic_brush"
                         android:nextFocusDown="@+id/grid" />
 
                     <TextView

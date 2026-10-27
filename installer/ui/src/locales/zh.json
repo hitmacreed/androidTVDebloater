@@ -67,7 +67,19 @@
     "generic_error": "出了点问题，请重试。",
     "details": "详情",
     "unsupported_android": "这台电视运行的是 {android}，没有 Google TV。暂不支持，因此未做任何更改。",
-    "api_level": "Android（API 级别 {n}）"
+    "api_level": "Android（API 级别 {n}）",
+    "wallpaper_title": "更换背景",
+    "wallpaper_text": "把你的照片放到 NLRC 主屏幕后面。",
+    "rail_wallpaper": "背景",
+    "bg_title": "选择背景照片",
+    "bg_lead": "照片保持清晰，并稍微调暗，让主屏幕依然清晰易读。",
+    "bg_pick": "选择照片",
+    "bg_change": "选择其他照片",
+    "bg_send": "设为背景",
+    "bg_sending": "正在将照片发送到电视…",
+    "bg_bad_file": "此应用无法打开该文件。请尝试 JPG 或 PNG。",
+    "done_wallpaper_title": "背景已设置",
+    "done_wallpaper_text": "请看电视：新背景已显示在主屏幕上。"
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "电视没有响应。请确认电视已开机、在同一个 Wi-Fi 上，并且已在电视上选择“一律允许”，然后再次点击“连接”。",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "这台电视其实带有 Google TV，因此主屏幕未做任何更改。",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "无法检查这台电视的主屏幕应用，因此主屏幕未做任何更改。",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "找不到这台电视的主屏幕应用，因此暂不支持。未做任何更改。",
-    "Couldn't read the TV's Android version": "无法读取电视的 Android 版本"
+    "Couldn't read the TV's Android version": "无法读取电视的 Android 版本",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "此电视尚未安装 NLRC。请先安装，然后再更换背景。",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "无法将照片发送到电视。请确认电视和这台电脑连接的是同一个 Wi-Fi，然后重试。",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "电视无法打开这张照片。请尝试 JPG 或 PNG。"
   }
 }

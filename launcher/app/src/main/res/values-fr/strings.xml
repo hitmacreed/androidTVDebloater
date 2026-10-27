@@ -49,4 +49,29 @@
     <string name="not_available">Non disponible sur cette TV</string>
     <string name="hdmi_switching">Passage à HDMI 2… 📺</string>
     <string name="hdmi_failed">Impossible d\'ouvrir HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Fond d\'écran</string>
+    <string name="bg_from_phone">Depuis votre téléphone</string>
+    <string name="bg_default">Fond d\'écran par défaut</string>
+    <string name="bg_set">Fond d\'écran défini</string>
+    <string name="bg_reset">Fond d\'écran par défaut rétabli</string>
+    <string name="bg_phone_title">Envoyer une photo depuis votre téléphone</string>
+    <string name="bg_phone_steps">Scannez le code avec l\'appareil photo de votre téléphone, ou ouvrez cette adresse sur un téléphone connecté au même Wi-Fi que la TV :</string>
+    <string name="bg_phone_code">Code : %1$s</string>
+    <string name="bg_phone_waiting">En attente d\'une photo…</string>
+    <string name="bg_phone_receiving">Réception de la photo…</string>
+    <string name="bg_phone_bad_image">Ce fichier n\'est pas une photo que la TV peut ouvrir. Essayez un JPG ou un PNG.</string>
+    <string name="bg_phone_no_network">Connectez la TV à votre réseau pour envoyer une photo.</string>
+    <string name="bg_phone_busy">Impossible de se préparer à recevoir une photo. Fermez cet écran et réessayez.</string>
+    <string name="web_title">Changer le fond d\'écran de la TV</string>
+    <string name="web_code">Code affiché sur la TV</string>
+    <string name="web_pick">Choisir une photo</string>
+    <string name="web_send">Définir comme fond d\'écran</string>
+    <string name="web_sending">Envoi…</string>
+    <string name="web_done">C\'est fait. Regardez votre TV.</string>
+    <string name="web_wrong_code">Code incorrect. Vérifiez le code sur la TV.</string>
+    <string name="web_too_big">Cette photo est trop lourde. Choisissez-en une de moins de 20 Mo.</string>
+    <string name="web_bad_image">La TV ne peut pas ouvrir cette photo. Essayez un JPG ou un PNG.</string>
+    <string name="web_failed">Impossible d\'envoyer la photo. Vérifiez que votre téléphone est sur le même Wi-Fi que la TV.</string>
 </resources>

@@ -62,4 +62,29 @@
     <string name="not_available">Not available on this TV</string>
     <string name="hdmi_switching">Switching to HDMI 2… 📺</string>
     <string name="hdmi_failed">Cannot open HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Background</string>
+    <string name="bg_from_phone">From your phone</string>
+    <string name="bg_default">Default background</string>
+    <string name="bg_set">Background set</string>
+    <string name="bg_reset">Default background restored</string>
+    <string name="bg_phone_title">Send a photo from your phone</string>
+    <string name="bg_phone_steps">Scan the code with your phone\'s camera, or open this address on a phone on the same Wi-Fi as the TV:</string>
+    <string name="bg_phone_code">Code: %1$s</string>
+    <string name="bg_phone_waiting">Waiting for a photo…</string>
+    <string name="bg_phone_receiving">Receiving the photo…</string>
+    <string name="bg_phone_bad_image">That file isn\'t a photo the TV can open. Try a JPG or PNG.</string>
+    <string name="bg_phone_no_network">Connect the TV to your network to send a photo.</string>
+    <string name="bg_phone_busy">Couldn\'t get ready to receive a photo. Close this screen and try again.</string>
+    <string name="web_title">Set the TV background</string>
+    <string name="web_code">Code shown on the TV</string>
+    <string name="web_pick">Choose a photo</string>
+    <string name="web_send">Set as background</string>
+    <string name="web_sending">Sending…</string>
+    <string name="web_done">Done. Look at your TV.</string>
+    <string name="web_wrong_code">Wrong code. Check the code on the TV.</string>
+    <string name="web_too_big">That photo is too large. Pick one under 20 MB.</string>
+    <string name="web_bad_image">The TV can\'t open that photo. Try a JPG or PNG.</string>
+    <string name="web_failed">Couldn\'t send the photo. Check that your phone is on the same Wi-Fi as the TV.</string>
 </resources>

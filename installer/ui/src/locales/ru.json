@@ -67,7 +67,19 @@
     "generic_error": "Что-то пошло не так. Попробуйте ещё раз.",
     "details": "подробности",
     "unsupported_android": "На этом телевизоре {android} без Google TV. Он пока не поддерживается, поэтому ничего не изменено.",
-    "api_level": "Android (уровень API {n})"
+    "api_level": "Android (уровень API {n})",
+    "wallpaper_title": "Сменить фон",
+    "wallpaper_text": "Поставьте свою фотографию на фон главного экрана NLRC.",
+    "rail_wallpaper": "Фон",
+    "bg_title": "Выберите фото для фона",
+    "bg_lead": "Фото остаётся чётким и немного затемняется, чтобы главный экран оставался читаемым.",
+    "bg_pick": "Выбрать фото",
+    "bg_change": "Выбрать другое фото",
+    "bg_send": "Сделать фоном",
+    "bg_sending": "Отправка фото на телевизор…",
+    "bg_bad_file": "Этот файл не является фото, которое может открыть приложение. Попробуйте JPG или PNG.",
+    "done_wallpaper_title": "Фон установлен",
+    "done_wallpaper_text": "Посмотрите на телевизор: новый фон уже на главном экране."
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "Телевизор не ответил. Проверьте, что он включён, в той же сети Wi-Fi и что на нём выбрано «Всегда разрешать», затем снова нажмите «Подключить».",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "На этом телевизоре всё-таки есть Google TV, поэтому главный экран не изменён.",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "Не удалось проверить приложение главного экрана, поэтому главный экран не изменён.",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "Не удалось найти приложение главного экрана, поэтому телевизор пока не поддерживается. Ничего не изменено.",
-    "Couldn't read the TV's Android version": "Не удалось прочитать версию Android телевизора"
+    "Couldn't read the TV's Android version": "Не удалось прочитать версию Android телевизора",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "NLRC ещё не установлен на этом телевизоре. Сначала установите его, затем смените фон.",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "Не удалось отправить фото на телевизор. Проверьте, что телевизор и компьютер в одной сети Wi-Fi, и попробуйте снова.",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "Телевизор не смог открыть это фото. Попробуйте JPG или PNG."
   }
 }

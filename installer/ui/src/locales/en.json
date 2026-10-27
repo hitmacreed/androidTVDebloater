@@ -67,7 +67,19 @@
     "generic_error": "Something went wrong. Please try again.",
     "details": "details",
     "unsupported_android": "This TV runs {android} without Google TV. It isn't supported yet, so nothing was changed.",
-    "api_level": "Android (API level {n})"
+    "api_level": "Android (API level {n})",
+    "wallpaper_title": "Change the background",
+    "wallpaper_text": "Put one of your photos behind the NLRC home screen.",
+    "rail_wallpaper": "Background",
+    "bg_title": "Choose a background photo",
+    "bg_lead": "The photo stays sharp and is dimmed a little, so the home screen stays easy to read.",
+    "bg_pick": "Choose a photo",
+    "bg_change": "Choose another photo",
+    "bg_send": "Set as background",
+    "bg_sending": "Sending the photo to your TV…",
+    "bg_bad_file": "That file isn't a photo this app can open. Try a JPG or PNG.",
+    "done_wallpaper_title": "Background set",
+    "done_wallpaper_text": "Look at your TV: the new background is on the home screen."
   },
   "backend": {}
 }
