@@ -29,9 +29,9 @@
 
 | Home screen | Your own background photo |
 |---|---|
-| ![Home screen: the focused app's name on a lit shelf above the dock](docs/preview/home.png) | ![Home screen over a sunset photo, with the clock, buttons and tiles still readable](docs/preview/background.png) |
+| ![Home screen: the focused app's name on a lit shelf above the dock](docs/preview/home-v2.png) | ![Home screen over a sunset photo, with the clock, buttons and tiles still readable](docs/preview/background.png) |
 | **Dock menu (hold OK)** | **Background menu (paintbrush button)** |
-| ![Side panel with move, remove, hide and app info](docs/preview/dock-menu.png) | ![Background side panel with From your phone](docs/preview/background-menu.png) |
+| ![Side panel with move, remove, hide and app info](docs/preview/dock-menu-v2.png) | ![Background side panel with From your phone](docs/preview/background-menu.png) |
 | **PenDrive Viewer** | **Video player** |
 | ![PenDrive Viewer listing videos](docs/preview/pendrive.png) | ![Player with seek bar and remote hints](docs/preview/player.png) |
 
