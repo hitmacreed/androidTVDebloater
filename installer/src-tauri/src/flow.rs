@@ -240,12 +240,18 @@ fn grant_permissions(tv: &mut dyn Tv) -> Result<(), FlowError> {
         "pm grant {PACKAGE} android.permission.WRITE_SECURE_SETTINGS"
     ))?;
     tv.shell(&format!("appops set {PACKAGE} SYSTEM_ALERT_WINDOW allow"))?;
+    // TCL firmware refuses to bind HomeKeyService without its own AUTO_START op, and a
+    // reinstall resets it. Other TVs just print "unknown operation", which shell() ignores.
+    tv.shell(&format!("appops set {PACKAGE} AUTO_START allow"))?;
     Ok(())
 }
 
 fn set_home(tv: &mut dyn Tv, method: HomeMethod) -> Result<(), FlowError> {
     match method {
         HomeMethod::Accessibility => {
+            // Android only retries binding when the list changes, so writing back the same list
+            // after a reinstall (where TCL's AUTO_START block stopped the first bind) does nothing.
+            remove_service(tv)?;
             let current = tv.shell(&format!("settings get secure {A11Y_KEY}"))?;
             tv.shell(&format!(
                 "settings put secure {A11Y_KEY} {}",
@@ -466,6 +472,10 @@ mod tests {
             &tv,
             "appops set com.hitmacreed.androidtvdebloater SYSTEM_ALERT_WINDOW allow"
         ));
+        assert!(has(
+            &tv,
+            "appops set com.hitmacreed.androidtvdebloater AUTO_START allow"
+        ));
     }
 
     #[test]
@@ -566,6 +576,20 @@ mod tests {
         let (tv, r) = run_install(tv, false);
         assert!(r.is_ok());
         assert!(has(&tv, &put_services(SERVICE)));
+    }
+
+    #[test]
+    fn reinstall_toggles_the_service_so_android_binds_it_again() {
+        let tv = acer_tv().on(
+            "settings get secure enabled_accessibility_services",
+            &format!("x/.A:{SERVICE}"),
+        );
+        let (tv, r) = run_install(tv, false);
+        assert!(r.is_ok());
+        let off = index(&tv, &put_services("x/.A"));
+        let on = index(&tv, &put_services(&format!("x/.A:{SERVICE}")));
+        assert!(index(&tv, "appops set com.hitmacreed.androidtvdebloater AUTO_START allow") < off);
+        assert!(off < on);
     }
 
     #[test]

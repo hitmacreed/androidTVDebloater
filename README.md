@@ -105,6 +105,7 @@ If the install fails with "not enough space", run `adb shell pm trim-caches 999G
 ### 5. Make It the Home Screen
 **Android 14 Google TV:** enable the accessibility interceptor. Never disable the stock launcher here.
 ```bash
+adb shell appops set com.hitmacreed.androidtvdebloater AUTO_START allow  # TCL only; harmless elsewhere
 adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
 adb shell settings put secure accessibility_enabled 1
 ```

@@ -13,7 +13,7 @@ use crate::detect::{android_name, choose_method, read_info, Support};
 use crate::flow::{install_flow, restore_flow, FlowError, Step, StepState, REPLACE_PROMPT};
 use crate::scan::scan;
 use crate::tv::{Tv, TvError};
-use crate::wallpaper::{new_code, open_receiver, upload, BAD_PHOTO, NOT_INSTALLED, SEND_FAILED};
+use crate::wallpaper::{new_code, open_receiver, upload};
 
 const CONNECT_TIMEOUT: Duration = Duration::from_secs(60);
 /// Longest any install or restore may take; past this the Wi-Fi link is assumed dead.
@@ -333,6 +333,7 @@ async fn run_flow(
 mod tests {
     use super::*;
     use crate::fake::FakeTv;
+    use crate::wallpaper::{BAD_PHOTO, NOT_INSTALLED, SEND_FAILED};
 
     #[test]
     fn parse_ip_accepts_padded_and_port() {

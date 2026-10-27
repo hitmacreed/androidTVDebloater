@@ -1,6 +1,6 @@
 # 📺 NLRC Home (launcher)
 
-The Android TV launcher at the heart of androidTVDebloater. Package `com.hitmacreed.androidtvdebloater`, app name **NLRC Home**, version `2.3` (`versionCode 5`).
+The Android TV launcher at the heart of androidTVDebloater. Package `com.hitmacreed.androidtvdebloater`, app name **NLRC Home**, version `2.4` (`versionCode 6`).
 
 What it does for viewers is described in the [root README](../README.md). This file is for building, installing and changing it.
 
@@ -48,7 +48,7 @@ Then make it the home screen. The method depends on the TV:
 
 | TV | Command | Undo |
 |---|---|---|
-| **Android 14 Google TV** (Acer, TCL) | `adb shell pm grant com.hitmacreed.androidtvdebloater android.permission.WRITE_SECURE_SETTINGS`<br>`adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/com.hitmacreed.androidtvdebloater.HomeKeyService`<br>`adb shell settings put secure accessibility_enabled 1` | `adb shell settings delete secure enabled_accessibility_services` |
+| **Android 14 Google TV** (Acer, TCL) | `adb shell pm grant com.hitmacreed.androidtvdebloater android.permission.WRITE_SECURE_SETTINGS`<br>`adb shell appops set com.hitmacreed.androidtvdebloater AUTO_START allow` (TCL)<br>`adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/com.hitmacreed.androidtvdebloater.HomeKeyService`<br>`adb shell settings put secure accessibility_enabled 1` | `adb shell settings delete secure enabled_accessibility_services` |
 | **Android 9–11** (Mi Box, Mi TV) | `adb shell pm disable-user --user 0 com.google.android.tvlauncher` (Mi TVs with PatchWall: also `com.mitv.tvhome.atv`) | `adb shell pm enable <same package>` |
 
 > ⚠️ **Never disable `com.google.android.apps.tv.launcherx` on Android 14.** It bootloops the TV. `set-home-activity` doesn't stick on Android 9, which is why disabling is used there.

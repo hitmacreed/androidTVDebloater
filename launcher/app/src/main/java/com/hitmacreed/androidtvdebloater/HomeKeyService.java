@@ -37,7 +37,9 @@ public class HomeKeyService extends AccessibilityService {
                     // (dashboard.DashboardHandler), profile and account screens, which must stay usable.
                     CharSequence cls = event.getClassName();
                     if (cls != null && STOCK_HOME_ACTIVITY.contentEquals(cls)) {
-                        launchNlrcHome();
+                        // Not debounced: a quick second Home press brings launcherx back within
+                        // the debounce window, and skipping it would leave the stock home showing.
+                        startNlrcHome();
                     }
                 } else if ((NETFLIX_PKG.contentEquals(pkgName) || PRIME_PKG.contentEquals(pkgName))
                         && HdmiHelper.isAvailable(this)) {
@@ -82,7 +84,10 @@ public class HomeKeyService extends AccessibilityService {
             return;
         }
         lastLaunchTime = now;
+        startNlrcHome();
+    }
 
+    private void startNlrcHome() {
         handler.post(() -> {
             try {
                 Intent intent = new Intent(this, MainActivity.class);

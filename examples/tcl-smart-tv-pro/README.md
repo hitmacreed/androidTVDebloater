@@ -19,6 +19,7 @@ Tested on **TCL Smart TV Pro** running Android 14 (API 34, Kernel 5.15, Build `t
 Instead, keep `launcherx` enabled and use the non-destructive **Accessibility Service (`HomeKeyService`)**:
 ```bash
 adb shell pm grant com.hitmacreed.androidtvdebloater android.permission.WRITE_SECURE_SETTINGS
+adb shell appops set com.hitmacreed.androidtvdebloater AUTO_START allow
 adb shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/com.hitmacreed.androidtvdebloater.HomeKeyService
 adb shell settings put secure accessibility_enabled 1
 adb shell cmd package set-home-activity com.hitmacreed.androidtvdebloater/.MainActivity

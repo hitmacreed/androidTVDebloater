@@ -58,8 +58,8 @@
 
 {#if work.failed}
   <div class="mt-10 flex justify-between">
-    <button class="btn btn-ghost" disabled={w.busy} onclick={() => go('connect')}>
-      <Icon name="back" class="size-4" /> {t('back')}
+    <button class="btn btn-ghost" disabled={w.busy} onclick={() => go('welcome')}>
+      <Icon name="back" class="size-4" /> {t('back_to_start')}
     </button>
     {#if work.reconnect}
       <button class="btn btn-primary" disabled={w.busy} onclick={() => go('connect')}>

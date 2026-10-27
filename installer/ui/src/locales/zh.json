@@ -63,7 +63,6 @@
     "done_install_text": "按遥控器上的 **主页** 键。",
     "done_restore_title": "已完成",
     "done_restore_text": "原来的主屏幕回来了。",
-    "close": "关闭",
     "generic_error": "出了点问题，请重试。",
     "details": "详情",
     "unsupported_android": "这台电视运行的是 {android}，没有 Google TV。暂不支持，因此未做任何更改。",

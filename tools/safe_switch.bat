@@ -37,6 +37,8 @@ goto MENU
 :ACTIVATE_NLRC
 echo.
 echo Activating NLRC Custom UI...
+adb -s %TV_SERIAL% shell appops set com.hitmacreed.androidtvdebloater AUTO_START allow
+adb -s %TV_SERIAL% shell settings delete secure enabled_accessibility_services
 adb -s %TV_SERIAL% shell settings put secure enabled_accessibility_services com.hitmacreed.androidtvdebloater/.HomeKeyService
 adb -s %TV_SERIAL% shell settings put secure accessibility_enabled 1
 adb -s %TV_SERIAL% shell appops set com.hitmacreed.androidtvdebloater SYSTEM_ALERT_WINDOW allow
