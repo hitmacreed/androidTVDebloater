@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{web_title}}</title>
+<style>
+  :root { color-scheme: dark; --bg: #000; --text: #F2F1EE; --dim: #A6A3AC; --lamp: #F3C969; --field: #1C1B21; --bad: #FF8A80; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: var(--bg); }
+  body { margin: 0; min-height: 100vh; min-height: 100dvh; background: radial-gradient(ellipse at 80% 0%, #2a2340 0%, #000 60%) no-repeat var(--bg);
+    color: var(--text); font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center;
+    padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+  /* min-width: 0 everywhere: a form field's default width must never push the page past the screen. */
+  main { width: 100%; max-width: 420px; min-width: 0; margin: 0 auto; display: grid; gap: 18px; }
+  main > * { min-width: 0; }
+  .mark { font-weight: 700; font-size: 22px; letter-spacing: .02em; }
+  .mark i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--lamp); margin-left: 3px; }
+  h1 { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+  label { display: grid; gap: 6px; font-size: 15px; color: var(--dim); }
+  /* The extra left padding balances the letter spacing after the last digit, so the code sits centred. */
+  input[type=text] { font: inherit; font-size: 24px; letter-spacing: .3em; text-align: center; padding: 12px 12px 12px calc(12px + .3em); border-radius: 14px;
+    width: 100%; min-width: 0; border: 1px solid #3a3940; background: var(--field); color: var(--text); }
+  .pick { display: grid; place-items: center; aspect-ratio: 16 / 9; width: 100%; border-radius: 18px; border: 1.5px dashed #4a4852;
+    background: var(--field) center/cover no-repeat; color: var(--dim); cursor: pointer; text-align: center; padding: 16px;
+    transition: transform .12s, border-color .12s; }
+  .pick:active { transform: scale(.98); border-color: var(--lamp); }
+  .pick.has { border-style: solid; color: transparent; }
+  .pick input { display: none; }
+  button { font: inherit; font-weight: 600; padding: 16px; border: 0; border-radius: 99px; background: var(--text); color: #000; cursor: pointer;
+    touch-action: manipulation; transition: transform .12s, opacity .12s; }
+  button:active:not(:disabled) { transform: scale(.97); }
+  button:disabled { opacity: .45; }
+  .bar { height: 6px; border-radius: 99px; background: var(--field); overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--lamp); transition: width .15s; }
+  .bar[hidden] { display: none; }
+  button:focus-visible, .pick:focus-within, input:focus-visible { outline: 3px solid var(--lamp); outline-offset: 2px; }
+  #status { min-height: 1.5em; margin: 0; text-align: center; }
+  #status.bad { color: var(--bad); }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark">NLRC<i></i></div>
+  <h1>{{web_title}}</h1>
+  <label>{{web_code}}<input id="code" type="text" inputmode="numeric" maxlength="6" autocomplete="off"></label>
+  <label class="pick" id="pick">{{web_pick}}<input id="file" type="file" accept="image/*"></label>
+  <button id="send" disabled>{{web_send}}</button>
+  <div class="bar" id="bar" hidden><span></span></div>
+  <p id="status" role="status"></p>
+</main>
+<script>
+  const T = { sending: "{{js:web_sending}}", done: "{{js:web_done}}", wrong: "{{js:web_wrong_code}}", big: "{{js:web_too_big}}",
+              bad: "{{js:web_bad_image}}", failed: "{{js:web_failed}}" };
+  const $ = (id) => document.getElementById(id);
+  const code = $('code'), file = $('file'), send = $('send'), status = $('status'), pick = $('pick'), bar = $('bar');
+  code.value = new URLSearchParams(location.search).get('c') || '';
+  let photo = null;
+
+  function say(text, bad) { status.textContent = text; status.className = bad ? 'bad' : ''; }
+  function ready() { send.disabled = !(photo && /^\d{6}$/.test(code.value)); }
+  code.addEventListener('input', ready);
+
+  file.addEventListener('change', () => {
+    photo = file.files[0] || null;
+    if (photo) { pick.style.backgroundImage = 'url(' + URL.createObjectURL(photo) + ')'; pick.classList.add('has'); }
+    say('');
+    ready();
+  });
+
+  // The TV fits, rotates and tones these itself, so they go as they are: redrawing on the phone
+  // gave black pictures in some browsers (large photos, privacy modes that blank canvases).
+  const TV_READS = ['image/jpeg', 'image/png', 'image/webp'];
+  const MAX_BYTES = 20 * 1024 * 1024;
+
+  // Other formats (HEIC…) are converted to JPEG here, when this browser can read them.
+  function convert(f) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const s = Math.min(1, 1920 / img.naturalWidth, 1920 / img.naturalHeight);
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.naturalWidth * s);
+        c.height = Math.round(img.naturalHeight * s);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        if (blank(c)) { resolve(f); return; }
+        c.toBlob((b) => resolve(b || f), 'image/jpeg', 0.92);
+      };
+      img.onerror = () => resolve(f);
+      img.src = URL.createObjectURL(f);
+    });
+  }
+
+  // True when the browser drew nothing (all pixels black or transparent).
+  function blank(c) {
+    try {
+      const t = document.createElement('canvas');
+      t.width = t.height = 16;
+      const g = t.getContext('2d');
+      g.drawImage(c, 0, 0, 16, 16);
+      const d = g.getImageData(0, 0, 16, 16).data;
+      for (let i = 0; i < d.length; i += 4) if (d[i] || d[i + 1] || d[i + 2]) return false;
+      return true;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  const prepare = (f) => (TV_READS.includes(f.type) && f.size <= MAX_BYTES ? Promise.resolve(f) : convert(f));
+
+  // XHR rather than fetch: it reports upload progress, so a big photo doesn't look frozen.
+  function upload(body) {
+    return new Promise((resolve, reject) => {
+      const x = new XMLHttpRequest();
+      x.open('POST', '/upload');
+      x.setRequestHeader('X-Code', code.value);
+      x.upload.onprogress = (e) => {
+        if (!e.lengthComputable) return;
+        const pct = Math.round((e.loaded / e.total) * 100);
+        bar.firstElementChild.style.width = pct + '%';
+        say(T.sending + ' ' + pct + '%');
+      };
+      x.onload = () => resolve(x.status);
+      x.onerror = x.ontimeout = reject;
+      x.timeout = 120000;
+      x.send(body);
+    });
+  }
+
+  send.addEventListener('click', async () => {
+    send.disabled = true;
+    file.disabled = true;
+    say(T.sending);
+    bar.hidden = false;
+    bar.firstElementChild.style.width = '0';
+    try {
+      const st = await upload(await prepare(photo));
+      if (st === 200) {
+        bar.firstElementChild.style.width = '100%';
+        say(T.done);
+        return;
+      }
+      say(st === 403 ? T.wrong : st === 413 ? T.big : st === 415 ? T.bad : T.failed, true);
+    } catch (e) {
+      say(T.failed, true);
+    }
+    bar.hidden = true;
+    file.disabled = false;
+    ready();
+  });
+</script>
+</body>
+</html>

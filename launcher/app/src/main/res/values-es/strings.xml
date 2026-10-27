@@ -49,4 +49,29 @@
     <string name="not_available">No disponible en esta TV</string>
     <string name="hdmi_switching">Cambiando a HDMI 2… 📺</string>
     <string name="hdmi_failed">No se puede abrir HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Fondo</string>
+    <string name="bg_from_phone">Desde tu móvil</string>
+    <string name="bg_default">Fondo predeterminado</string>
+    <string name="bg_set">Fondo establecido</string>
+    <string name="bg_reset">Fondo predeterminado restaurado</string>
+    <string name="bg_phone_title">Envía una foto desde tu móvil</string>
+    <string name="bg_phone_steps">Escanea el código con la cámara del móvil o abre esta dirección en un móvil conectado al mismo Wi-Fi que la TV:</string>
+    <string name="bg_phone_code">Código: %1$s</string>
+    <string name="bg_phone_waiting">Esperando una foto…</string>
+    <string name="bg_phone_receiving">Recibiendo la foto…</string>
+    <string name="bg_phone_bad_image">Ese archivo no es una foto que la TV pueda abrir. Prueba con un JPG o PNG.</string>
+    <string name="bg_phone_no_network">Conecta la TV a tu red para enviar una foto.</string>
+    <string name="bg_phone_busy">No se pudo preparar la recepción de la foto. Cierra esta pantalla e inténtalo de nuevo.</string>
+    <string name="web_title">Cambiar el fondo de la TV</string>
+    <string name="web_code">Código que aparece en la TV</string>
+    <string name="web_pick">Elegir una foto</string>
+    <string name="web_send">Poner como fondo</string>
+    <string name="web_sending">Enviando…</string>
+    <string name="web_done">Listo. Mira tu TV.</string>
+    <string name="web_wrong_code">Código incorrecto. Revisa el código en la TV.</string>
+    <string name="web_too_big">Esa foto es demasiado grande. Elige una de menos de 20 MB.</string>
+    <string name="web_bad_image">La TV no puede abrir esa foto. Prueba con un JPG o PNG.</string>
+    <string name="web_failed">No se pudo enviar la foto. Comprueba que tu móvil está en el mismo Wi-Fi que la TV.</string>
 </resources>

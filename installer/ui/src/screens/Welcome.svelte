@@ -5,6 +5,7 @@
 
   const CHOICES = [
     { mode: 'install', icon: 'download', title: t('install_title'), text: t('install_text') },
+    { mode: 'wallpaper', icon: 'image', title: t('wallpaper_title'), text: t('wallpaper_text') },
     { mode: 'restore', icon: 'restore', title: t('restore_title'), text: t('restore_text') },
   ];
 

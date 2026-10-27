@@ -49,4 +49,29 @@
     <string name="not_available">Non disponibile su questa TV</string>
     <string name="hdmi_switching">Passaggio a HDMI 2… 📺</string>
     <string name="hdmi_failed">Impossibile aprire HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Sfondo</string>
+    <string name="bg_from_phone">Dal telefono</string>
+    <string name="bg_default">Sfondo predefinito</string>
+    <string name="bg_set">Sfondo impostato</string>
+    <string name="bg_reset">Sfondo predefinito ripristinato</string>
+    <string name="bg_phone_title">Invia una foto dal telefono</string>
+    <string name="bg_phone_steps">Inquadra il codice con la fotocamera del telefono, oppure apri questo indirizzo su un telefono collegato allo stesso Wi-Fi della TV:</string>
+    <string name="bg_phone_code">Codice: %1$s</string>
+    <string name="bg_phone_waiting">In attesa di una foto…</string>
+    <string name="bg_phone_receiving">Ricezione della foto…</string>
+    <string name="bg_phone_bad_image">Questo file non è una foto che la TV può aprire. Prova con un JPG o PNG.</string>
+    <string name="bg_phone_no_network">Collega la TV alla rete per inviare una foto.</string>
+    <string name="bg_phone_busy">Impossibile prepararsi a ricevere la foto. Chiudi questa schermata e riprova.</string>
+    <string name="web_title">Cambia lo sfondo della TV</string>
+    <string name="web_code">Codice mostrato sulla TV</string>
+    <string name="web_pick">Scegli una foto</string>
+    <string name="web_send">Imposta come sfondo</string>
+    <string name="web_sending">Invio…</string>
+    <string name="web_done">Fatto. Guarda la TV.</string>
+    <string name="web_wrong_code">Codice errato. Controlla il codice sulla TV.</string>
+    <string name="web_too_big">La foto è troppo grande. Scegline una sotto i 20 MB.</string>
+    <string name="web_bad_image">La TV non riesce ad aprire questa foto. Prova con un JPG o PNG.</string>
+    <string name="web_failed">Impossibile inviare la foto. Controlla che il telefono sia sullo stesso Wi-Fi della TV.</string>
 </resources>

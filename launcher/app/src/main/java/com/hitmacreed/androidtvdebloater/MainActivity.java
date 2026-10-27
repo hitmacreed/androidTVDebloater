@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -36,6 +37,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,6 +66,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private View moreAppsHint;
     private GradientDrawable ambientGlow;
     private int ambientColor;
+    private ImageView wallpaper;
+    private View wallScrim;
+    /** A user photo is showing: the shelf light is softer so it tints the photo instead of covering it. */
+    private boolean photoWallpaper;
     private boolean heroShown;
     private TextView greeting;
     private TextView fatherGreeting;
@@ -91,6 +99,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
         root = findViewById(R.id.root);
         ambient = findViewById(R.id.ambient);
+        wallpaper = findViewById(R.id.wallpaper);
+        wallScrim = findViewById(R.id.wallScrim);
         hero = findViewById(R.id.hero);
         heroName = findViewById(R.id.heroName);
         heroDetail = findViewById(R.id.heroDetail);
@@ -135,7 +145,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
         View btnInputs = findViewById(R.id.btnInputs);
         View btnSettings = findViewById(R.id.btnSettings);
+        TextView btnBackground = findViewById(R.id.btnBackground);
         btnInputs.setOnClickListener(v -> showInputs());
+        btnBackground.setOnClickListener(v -> showBackgroundMenu());
         btnWifi.setOnClickListener(v -> open(new Intent(Settings.ACTION_WIFI_SETTINGS)));
         btnSettings.setOnClickListener(v -> open(new Intent(Settings.ACTION_SETTINGS)));
 
@@ -151,7 +163,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnInputs.setOnKeyListener(pillKeys);
         btnWifi.setOnKeyListener(pillKeys);
         btnSettings.setOnKeyListener(pillKeys);
-        for (TextView b : new TextView[]{(TextView) btnInputs, btnWifi, (TextView) btnSettings}) {
+        btnBackground.setOnKeyListener(pillKeys);
+        for (TextView b : new TextView[]{(TextView) btnInputs, btnWifi, btnBackground, (TextView) btnSettings}) {
             b.setTag(b.getText());
             b.setOnFocusChangeListener((v, focused) -> showLabel((TextView) v, focused));
             showLabel(b, false);
@@ -197,6 +210,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         hero.setAlpha(0f);
         ambient.setAlpha(0f);
         adapter.reload();
+        applyWallpaper();
         prewarmTiles();
         grid.scheduleLayoutAnimation();
         updateGreeting();
@@ -325,7 +339,44 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void setAmbient(int color) {
         ambientColor = color;
         int c = color & 0x00FFFFFF;
-        ambientGlow.setColors(new int[]{0x8C000000 | c, 0x38000000 | c, 0x00000000 | c});
+        ambientGlow.setColors(photoWallpaper
+                ? new int[]{0x4D000000 | c, 0x1A000000 | c, 0x00000000 | c}
+                : new int[]{0x8C000000 | c, 0x38000000 | c, 0x00000000 | c});
+    }
+
+    // ---- background ------------------------------------------------------------------------------
+
+    /** Shows the user's photo if one is saved (decoded off the main thread), else the default. */
+    private void applyWallpaper() {
+        new Thread(() -> {
+            Bitmap photo = WallpaperStore.load(this);
+            runOnUiThread(() -> {
+                if (isDestroyed()) return;
+                photoWallpaper = photo != null;
+                if (photo != null) wallpaper.setImageBitmap(photo);
+                else wallpaper.setImageResource(R.drawable.bg_home);
+                wallpaper.setAlpha(photo != null ? 1f : 0.35f);
+                wallScrim.setVisibility(photo != null ? View.VISIBLE : View.GONE);
+                if (heroShown) setAmbient(ambientColor);
+            });
+        }, "wallpaper-load").start();
+    }
+
+    private void showBackgroundMenu() {
+        List<String> labels = new ArrayList<>();
+        List<Runnable> actions = new ArrayList<>();
+        labels.add(getString(R.string.bg_from_phone));
+        // No NEW_TASK (unlike open()): always lands on top of the home screen.
+        actions.add(() -> startActivity(new Intent(this, PhoneUploadActivity.class)));
+        if (WallpaperStore.exists(this)) {
+            labels.add(getString(R.string.bg_default));
+            actions.add(() -> {
+                WallpaperStore.clear(this);
+                applyWallpaper();
+                Toast.makeText(this, R.string.bg_reset, Toast.LENGTH_SHORT).show();
+            });
+        }
+        SidePanel.show(this, getString(R.string.background), labels, actions);
     }
 
     private void hideHero() {

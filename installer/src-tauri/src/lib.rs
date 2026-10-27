@@ -7,6 +7,7 @@ pub mod fake;
 pub mod flow;
 pub mod scan;
 pub mod tv;
+pub mod wallpaper;
 
 pub fn run() {
     tauri::Builder::default()
@@ -15,7 +16,8 @@ pub fn run() {
             commands::scan_tvs,
             commands::connect_tv,
             commands::run_install,
-            commands::run_restore
+            commands::run_restore,
+            commands::set_wallpaper
         ])
         .run(tauri::generate_context!())
         .expect("error while running NLRC Setup");

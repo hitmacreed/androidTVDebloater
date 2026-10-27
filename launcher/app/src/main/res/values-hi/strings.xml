@@ -49,4 +49,29 @@
     <string name="not_available">इस टीवी पर उपलब्ध नहीं</string>
     <string name="hdmi_switching">HDMI 2 पर स्विच हो रहा है… 📺</string>
     <string name="hdmi_failed">HDMI 2 नहीं खुल सका</string>
+
+    <!-- Background photo -->
+    <string name="background">बैकग्राउंड</string>
+    <string name="bg_from_phone">अपने फ़ोन से</string>
+    <string name="bg_default">डिफ़ॉल्ट बैकग्राउंड</string>
+    <string name="bg_set">बैकग्राउंड सेट हो गया</string>
+    <string name="bg_reset">डिफ़ॉल्ट बैकग्राउंड वापस आ गया</string>
+    <string name="bg_phone_title">अपने फ़ोन से फ़ोटो भेजें</string>
+    <string name="bg_phone_steps">फ़ोन के कैमरे से कोड स्कैन करें, या टीवी वाले ही Wi-Fi पर किसी फ़ोन में यह पता खोलें:</string>
+    <string name="bg_phone_code">कोड: %1$s</string>
+    <string name="bg_phone_waiting">फ़ोटो का इंतज़ार है…</string>
+    <string name="bg_phone_receiving">फ़ोटो मिल रही है…</string>
+    <string name="bg_phone_bad_image">यह फ़ाइल ऐसी फ़ोटो नहीं है जिसे टीवी खोल सके। JPG या PNG आज़माएँ।</string>
+    <string name="bg_phone_no_network">फ़ोटो भेजने के लिए टीवी को अपने नेटवर्क से जोड़ें।</string>
+    <string name="bg_phone_busy">फ़ोटो पाने की तैयारी नहीं हो सकी। यह स्क्रीन बंद करके फिर से कोशिश करें।</string>
+    <string name="web_title">टीवी का बैकग्राउंड सेट करें</string>
+    <string name="web_code">टीवी पर दिखाया गया कोड</string>
+    <string name="web_pick">फ़ोटो चुनें</string>
+    <string name="web_send">बैकग्राउंड बनाएँ</string>
+    <string name="web_sending">भेजा जा रहा है…</string>
+    <string name="web_done">हो गया। अपना टीवी देखें।</string>
+    <string name="web_wrong_code">गलत कोड। टीवी पर कोड जाँचें।</string>
+    <string name="web_too_big">यह फ़ोटो बहुत बड़ी है। 20 MB से छोटी फ़ोटो चुनें।</string>
+    <string name="web_bad_image">टीवी यह फ़ोटो नहीं खोल सकता। JPG या PNG आज़माएँ।</string>
+    <string name="web_failed">फ़ोटो नहीं भेजी जा सकी। जाँचें कि आपका फ़ोन टीवी वाले ही Wi-Fi पर है।</string>
 </resources>

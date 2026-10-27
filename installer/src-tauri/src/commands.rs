@@ -13,6 +13,7 @@ use crate::detect::{android_name, choose_method, read_info, Support};
 use crate::flow::{install_flow, restore_flow, FlowError, Step, StepState, REPLACE_PROMPT};
 use crate::scan::scan;
 use crate::tv::{Tv, TvError};
+use crate::wallpaper::{new_code, open_receiver, upload, BAD_PHOTO, NOT_INSTALLED, SEND_FAILED};
 
 const CONNECT_TIMEOUT: Duration = Duration::from_secs(60);
 /// Longest any install or restore may take; past this the Wi-Fi link is assumed dead.
@@ -26,6 +27,8 @@ const APK_MISSING: &str = "The launcher file is missing from this app. Please do
 const INSTALL_REFUSED: &str = "The TV refused to install the launcher.";
 const INTERNAL: &str = "Something went wrong inside the app. Please try again.";
 const KEY_FAILED: &str = "Couldn't prepare this computer to talk to the TV.";
+/// Opening the receiver screen is one quick adb command; past this the link is assumed dead.
+const OPEN_TIMEOUT: Duration = Duration::from_secs(20);
 
 /// The connected TV. Flows take it out while they run, so it is never locked across blocking work.
 #[derive(Default)]
@@ -264,6 +267,33 @@ pub async fn run_install(
 #[tauri::command]
 pub async fn run_restore(app: AppHandle, state: State<'_, Session>) -> Result<(), FlowError> {
     run_flow(&app, &state, restore_flow).await
+}
+
+/// Sends a photo (already shrunk to TV size by the UI) to the launcher as its background.
+#[tauri::command]
+pub async fn set_wallpaper(image: Vec<u8>, state: State<'_, Session>) -> Result<(), String> {
+    let taken = state.0.lock().map_err(|_| INTERNAL.to_string())?.take();
+    let mut tv = taken.ok_or_else(|| NOT_CONNECTED.to_string())?;
+    let ip = tv.ip();
+    let code = new_code();
+
+    // adb reads never time out, so the TV is only handed back if it answered in time.
+    let (tx, rx) = mpsc::channel();
+    let c = code.clone();
+    thread::spawn(move || {
+        let opened = open_receiver(&mut tv, &c);
+        let _ = tx.send((tv, opened));
+    });
+    let answered = tauri::async_runtime::spawn_blocking(move || rx.recv_timeout(OPEN_TIMEOUT))
+        .await
+        .map_err(|_| INTERNAL.to_string())?;
+    let (tv, opened) = answered.map_err(|_| LOST.to_string())?;
+    *state.0.lock().map_err(|_| INTERNAL.to_string())? = Some(tv);
+    opened?;
+
+    tauri::async_runtime::spawn_blocking(move || upload(ip, &code, &image))
+        .await
+        .map_err(|_| INTERNAL.to_string())?
 }
 
 async fn run_flow(
@@ -563,6 +593,9 @@ mod tests {
             CANT_CHECK_HOME,
             NO_HOME_APP,
             SDK_UNREADABLE,
+            NOT_INSTALLED,
+            SEND_FAILED,
+            BAD_PHOTO,
         ];
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../ui/src/locales");
         let read = |lang: &str| -> serde_json::Value {

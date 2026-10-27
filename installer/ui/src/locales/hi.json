@@ -67,7 +67,19 @@
     "generic_error": "कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।",
     "details": "विवरण",
     "unsupported_android": "यह टीवी Google TV के बिना {android} पर चलता है। यह अभी समर्थित नहीं है, इसलिए कुछ नहीं बदला गया।",
-    "api_level": "Android (API स्तर {n})"
+    "api_level": "Android (API स्तर {n})",
+    "wallpaper_title": "बैकग्राउंड बदलें",
+    "wallpaper_text": "अपनी कोई फ़ोटो NLRC होम स्क्रीन के पीछे लगाएँ।",
+    "rail_wallpaper": "बैकग्राउंड",
+    "bg_title": "बैकग्राउंड फ़ोटो चुनें",
+    "bg_lead": "फ़ोटो साफ़ रहती है और थोड़ी गहरी की जाती है, ताकि होम स्क्रीन आसानी से पढ़ी जा सके।",
+    "bg_pick": "फ़ोटो चुनें",
+    "bg_change": "दूसरी फ़ोटो चुनें",
+    "bg_send": "बैकग्राउंड बनाएँ",
+    "bg_sending": "फ़ोटो आपके टीवी पर भेजी जा रही है…",
+    "bg_bad_file": "यह फ़ाइल ऐसी फ़ोटो नहीं है जिसे यह ऐप खोल सके। JPG या PNG आज़माएँ।",
+    "done_wallpaper_title": "बैकग्राउंड सेट हो गया",
+    "done_wallpaper_text": "अपना टीवी देखें: नया बैकग्राउंड होम स्क्रीन पर है।"
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "टीवी ने जवाब नहीं दिया। देखें कि टीवी चालू है, उसी वाई-फ़ाई पर है, और आपने टीवी पर 'हमेशा अनुमति दें' चुना है, फिर दोबारा 'कनेक्ट करें' दबाएँ।",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "इस टीवी में असल में Google TV है, इसलिए होम स्क्रीन में कुछ नहीं बदला गया।",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "इस टीवी का होम स्क्रीन ऐप जाँचा नहीं जा सका, इसलिए होम स्क्रीन में कुछ नहीं बदला गया।",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "इस टीवी का होम स्क्रीन ऐप नहीं मिला, इसलिए यह अभी समर्थित नहीं है। कुछ नहीं बदला गया।",
-    "Couldn't read the TV's Android version": "टीवी का Android वर्शन पढ़ा नहीं जा सका"
+    "Couldn't read the TV's Android version": "टीवी का Android वर्शन पढ़ा नहीं जा सका",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "इस टीवी पर अभी NLRC इंस्टॉल नहीं है। पहले इसे इंस्टॉल करें, फिर बैकग्राउंड बदलें।",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "फ़ोटो टीवी पर नहीं भेजी जा सकी। जाँचें कि टीवी और यह कंप्यूटर एक ही Wi-Fi पर हैं, फिर दोबारा कोशिश करें।",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "टीवी यह फ़ोटो नहीं खोल सका। JPG या PNG आज़माएँ।"
   }
 }

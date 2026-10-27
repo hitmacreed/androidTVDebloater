@@ -49,4 +49,29 @@
     <string name="not_available">Auf diesem TV nicht verfügbar</string>
     <string name="hdmi_switching">Wechsel zu HDMI 2… 📺</string>
     <string name="hdmi_failed">HDMI 2 kann nicht geöffnet werden</string>
+
+    <!-- Background photo -->
+    <string name="background">Hintergrund</string>
+    <string name="bg_from_phone">Vom Handy</string>
+    <string name="bg_default">Standardhintergrund</string>
+    <string name="bg_set">Hintergrund festgelegt</string>
+    <string name="bg_reset">Standardhintergrund wiederhergestellt</string>
+    <string name="bg_phone_title">Foto vom Handy senden</string>
+    <string name="bg_phone_steps">Scanne den Code mit der Handykamera oder öffne diese Adresse auf einem Handy im selben WLAN wie der Fernseher:</string>
+    <string name="bg_phone_code">Code: %1$s</string>
+    <string name="bg_phone_waiting">Warte auf ein Foto…</string>
+    <string name="bg_phone_receiving">Foto wird empfangen…</string>
+    <string name="bg_phone_bad_image">Diese Datei ist kein Foto, das der Fernseher öffnen kann. Versuche es mit JPG oder PNG.</string>
+    <string name="bg_phone_no_network">Verbinde den Fernseher mit deinem Netzwerk, um ein Foto zu senden.</string>
+    <string name="bg_phone_busy">Empfang konnte nicht vorbereitet werden. Schließe diesen Bildschirm und versuche es erneut.</string>
+    <string name="web_title">Fernseher-Hintergrund festlegen</string>
+    <string name="web_code">Code auf dem Fernseher</string>
+    <string name="web_pick">Foto auswählen</string>
+    <string name="web_send">Als Hintergrund festlegen</string>
+    <string name="web_sending">Wird gesendet…</string>
+    <string name="web_done">Fertig. Schau auf den Fernseher.</string>
+    <string name="web_wrong_code">Falscher Code. Prüfe den Code auf dem Fernseher.</string>
+    <string name="web_too_big">Das Foto ist zu groß. Wähle eines unter 20 MB.</string>
+    <string name="web_bad_image">Der Fernseher kann dieses Foto nicht öffnen. Versuche es mit JPG oder PNG.</string>
+    <string name="web_failed">Foto konnte nicht gesendet werden. Prüfe, ob dein Handy im selben WLAN wie der Fernseher ist.</string>
 </resources>

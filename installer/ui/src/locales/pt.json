@@ -67,7 +67,19 @@
     "generic_error": "Algo correu mal. Tente novamente.",
     "details": "detalhes",
     "unsupported_android": "Esta TV tem {android} sem Google TV. Ainda não é suportada, por isso nada foi alterado.",
-    "api_level": "Android (nível de API {n})"
+    "api_level": "Android (nível de API {n})",
+    "wallpaper_title": "Mudar o fundo",
+    "wallpaper_text": "Ponha uma das suas fotos atrás do ecrã inicial NLRC.",
+    "rail_wallpaper": "Fundo",
+    "bg_title": "Escolha uma foto de fundo",
+    "bg_lead": "A foto mantém-se nítida e fica um pouco mais escura, para que o ecrã inicial continue fácil de ler.",
+    "bg_pick": "Escolher uma foto",
+    "bg_change": "Escolher outra foto",
+    "bg_send": "Definir como fundo",
+    "bg_sending": "A enviar a foto para a TV…",
+    "bg_bad_file": "Esse ficheiro não é uma foto que esta app consiga abrir. Experimente um JPG ou PNG.",
+    "done_wallpaper_title": "Fundo definido",
+    "done_wallpaper_text": "Olhe para a TV: o novo fundo já está no ecrã inicial."
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "A TV não respondeu. Confirme que está ligada, na mesma rede Wi-Fi, e que escolheu Permitir sempre na TV; depois prima Ligar novamente.",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "Afinal esta TV tem Google TV, por isso nada foi alterado no ecrã inicial.",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "Não foi possível verificar a app do ecrã inicial desta TV, por isso nada foi alterado no ecrã inicial.",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "Não encontrámos a app do ecrã inicial desta TV, por isso ainda não é suportada. Nada foi alterado.",
-    "Couldn't read the TV's Android version": "Não foi possível ler a versão de Android da TV"
+    "Couldn't read the TV's Android version": "Não foi possível ler a versão de Android da TV",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "O NLRC ainda não está instalado nesta TV. Instale-o primeiro e depois mude o fundo.",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "Não foi possível enviar a foto para a TV. Confirme que a TV e este computador estão no mesmo Wi-Fi e tente novamente.",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "A TV não conseguiu abrir essa foto. Experimente um JPG ou PNG."
   }
 }
