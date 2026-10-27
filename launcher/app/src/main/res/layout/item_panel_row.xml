@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/panel_row_bg"
+    android:clickable="true"
+    android:ellipsize="end"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp"
+    android:singleLine="true"
+    android:textColor="@drawable/panel_row_text"
+    android:textSize="19sp"
+    android:fontFamily="@font/outfit"
+    android:fontVariationSettings="'wght' 500" />

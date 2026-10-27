@@ -47,6 +47,13 @@
             android:textSize="13sp"
             android:fontFamily="@font/outfit"
             android:visibility="gone" />
+
+        <View
+            android:id="@+id/sheen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@drawable/tile_sheen" />
     </FrameLayout>
 
     <TextView

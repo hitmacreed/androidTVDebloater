@@ -1,6 +1,6 @@
 package com.hitmacreed.androidtvdebloater;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,6 +67,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         final Intent launchIntent;
         final boolean isInput;
         int ambient;
+        /** Status line under the name on the top shelf (input connection, pen drive), or null. */
+        String detail;
 
         /** Regular application tile. */
         Entry(String label, ComponentName component, Drawable banner, Drawable icon) {
@@ -91,7 +94,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         }
     }
 
-    static final float FOCUS_SCALE = 1.10f;
+    static final float FOCUS_SCALE = 1.12f;
 
     private final Context ctx;
     private final TileListener listener;
@@ -108,7 +111,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
     private final Set<String>  userHidden = new HashSet<>();
     private final List<Entry>  hiddenItems = new ArrayList<>();
     private RecyclerView recycler;
-    private AlertDialog tileMenu;
+    private Dialog tileMenu;
 
     AppAdapter(Context ctx, TileListener listener, int dockSize) {
         this.ctx        = ctx;
@@ -151,6 +154,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                 boolean isHdmi = info.getType() == TvInputInfo.TYPE_HDMI;
                 int state = HdmiHelper.inputState(tim, info.getId());
                 boolean isConnected = (state == TvInputManager.INPUT_STATE_CONNECTED);
+                String detail = isConnected ? ctx.getString(R.string.connected)
+                        : state == TvInputManager.INPUT_STATE_DISCONNECTED ? ctx.getString(R.string.not_connected) : null;
 
                 Intent switchIntent = new Intent(Intent.ACTION_VIEW)
                         .setDataAndType(
@@ -174,6 +179,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                         String fullLabel = "HDMI 2 · Jio TV";
                         Drawable banner = createHdmiBanner(ctx, title, sub, isConnected, 0xFF0D1B2A, 0xFF1B263B);
                         fresh.add(new Entry(fullLabel, pkgKey, banner, fallbackIcon, switchIntent, 0xFF0077EE));
+                        fresh.get(fresh.size() - 1).detail = detail;
                     } else {
                         // HDMI 1 (or other HDMI)
                         String title    = "HDMI " + hdmiIdx;
@@ -181,6 +187,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                         String fullLabel = "HDMI " + hdmiIdx;
                         Drawable banner = createHdmiBanner(ctx, title, sub, isConnected, 0xFF141414, 0xFF222222);
                         fresh.add(new Entry(fullLabel, pkgKey, banner, fallbackIcon, switchIntent, 0xFF555555));
+                        fresh.get(fresh.size() - 1).detail = detail;
                     }
                     hdmiIdx++;
                 } else {
@@ -189,6 +196,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                     Drawable banner = createHdmiBanner(ctx, "AV",
                             ctx.getString(isConnected ? R.string.connected : R.string.composite), isConnected, 0xFF141414, 0xFF222222);
                     fresh.add(new Entry(fullLabel, "av_input", banner, fallbackIcon, switchIntent, 0xFF555555));
+                    fresh.get(fresh.size() - 1).detail = detail;
                 }
             }
         }
@@ -203,8 +211,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
             fallbackPlayIcon = null;
         }
         Drawable mediaBanner = createMediaTileBanner(ctx);
-        fresh.add(new Entry(ctx.getString(R.string.pd_title), "nlrc_pendrive",
-                mediaBanner, fallbackPlayIcon, penDriveIntent, 0xFFFFB300));
+        Entry penDrive = new Entry(ctx.getString(R.string.pd_title), "nlrc_pendrive",
+                mediaBanner, fallbackPlayIcon, penDriveIntent, 0xFFFFB300);
+        penDrive.detail = ctx.getString(R.string.pd_tile);
+        fresh.add(penDrive);
 
         // ── 3. Sort: dock favourites first, in saved order; the rest alphabetically ─
         Collections.sort(fresh, (a, b) -> {
@@ -397,10 +407,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                 try { ctx.startActivity(i); } catch (ActivityNotFoundException ignored) {}
             });
         }
-        tileMenu = new AlertDialog.Builder(ctx)
-                .setTitle(e.label)
-                .setItems(labels.toArray(new String[0]), (d, which) -> actions.get(which).run())
-                .show();
+        tileMenu = SidePanel.show(ctx, e.label, labels, actions);
     }
 
     /** Removes the tile from the screen (and the dock); it can be shown again from "Hidden apps". */
@@ -420,20 +427,19 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
 
     /** Lists hidden tiles; picking one shows it again in the grid. */
     private void showHiddenMenu(int position) {
-        List<Entry> snapshot = new ArrayList<>(hiddenItems);
-        String[] names = new String[snapshot.size()];
-        for (int i = 0; i < names.length; i++) names[i] = snapshot.get(i).label;
-        new AlertDialog.Builder(ctx)
-                .setTitle(R.string.hidden_apps)
-                .setItems(names, (d, which) -> {
-                    Entry e = snapshot.get(which);
-                    userHidden.remove(e.pkg);
-                    prefs.edit().putStringSet(KEY_HIDDEN, new HashSet<>(userHidden)).apply();
-                    reload();
-                    focusAt(position);
-                    Toast.makeText(ctx, ctx.getString(R.string.app_shown, e.label), Toast.LENGTH_SHORT).show();
-                })
-                .show();
+        List<String> names = new ArrayList<>();
+        List<Runnable> actions = new ArrayList<>();
+        for (Entry e : new ArrayList<>(hiddenItems)) {
+            names.add(e.label);
+            actions.add(() -> {
+                userHidden.remove(e.pkg);
+                prefs.edit().putStringSet(KEY_HIDDEN, new HashSet<>(userHidden)).apply();
+                reload();
+                focusAt(position);
+                Toast.makeText(ctx, ctx.getString(R.string.app_shown, e.label), Toast.LENGTH_SHORT).show();
+            });
+        }
+        SidePanel.show(ctx, ctx.getString(R.string.hidden_apps), names, actions);
     }
 
     /** Swaps two dock slots and keeps focus on the moved tile so it can be moved again. */
@@ -520,6 +526,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         return position >= 0 && position < items.size() ? items.get(position).label : "";
     }
 
+    String detailAt(int position) {
+        return position >= 0 && position < items.size() ? items.get(position).detail : null;
+    }
+
     int ambientColorAt(int position) {
         if (position < 0 || position >= items.size()) return 0xFF444444;
         Entry e = items.get(position);
@@ -572,6 +582,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         final ImageView icon;
         final TextView  label;
         final TextView  name;
+        final View      sheen;
         private boolean held;
 
         Holder(View v, TileListener listener) {
@@ -581,9 +592,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
             icon   = v.findViewById(R.id.icon);
             label  = v.findViewById(R.id.label);
             name   = v.findViewById(R.id.name);
+            sheen  = v.findViewById(R.id.sheen);
 
             final float density = v.getResources().getDisplayMetrics().density;
-            final float radius  = density * 16f;
+            final float radius  = density * 20f;
+            card.setCameraDistance(density * 8000f);   // keeps the focus tilt subtle, not a fisheye
             card.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
@@ -613,11 +626,15 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
             });
 
             card.setOnFocusChangeListener((view, focused) -> {
+                // tvOS lift: grow, cast a shadow and catch the light; MainActivity adds the tilt.
                 float s = focused ? FOCUS_SCALE : 1.0f;
-                view.animate().scaleX(s).scaleY(s)
+                ViewPropertyAnimator lift = view.animate().scaleX(s).scaleY(s)
+                        .translationZ(focused ? density * 14f : 0f)
                         .setDuration(focused ? 260 : 180)
-                        .setInterpolator(new OvershootInterpolator(focused ? 1.6f : 0f))
-                        .start();
+                        .setInterpolator(new OvershootInterpolator(focused ? 1.6f : 0f));
+                if (!focused) lift.rotationX(0f).rotationY(0f);
+                lift.start();
+                sheen.animate().alpha(focused ? 1f : 0f).setDuration(focused ? 260 : 160).start();
                 name.animate().alpha(focused ? 1f : 0f)
                         .translationY(focused ? density * 4f : -density * 6f)
                         .setDuration(220).start();

@@ -9,7 +9,6 @@
     <string name="live_tv">Live TV</string>
     <string name="no_inputs">No inputs found</string>
     <string name="nlrc_brand" translatable="false">NLRC</string>
-    <string name="nlrc_tagline">Entertainment Hub</string>
     <string name="ethernet" translatable="false">Ethernet</string>
     <string name="offline">Offline</string>
     <string name="accessibility_service_description" translatable="false">NLRC Launcher Key and Window Interceptor</string>
