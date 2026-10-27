@@ -27,11 +27,13 @@
 
 ## 🖼️ Preview
 
-| Home screen | PenDrive Viewer |
+| Home screen | Your own background photo |
 |---|---|
-| ![Home screen with dock and All apps hint](docs/preview/home.png) | ![PenDrive Viewer listing videos](docs/preview/pendrive.png) |
-| **Dock menu (hold OK)** | **Video player** |
-| ![Tile menu with pin, move and hide](docs/preview/dock-menu.png) | ![Player with seek bar and remote hints](docs/preview/player.png) |
+| ![Home screen: the focused app's name on a lit shelf above the dock](docs/preview/home-v2.png) | ![Home screen over a sunset photo, with the clock, buttons and tiles still readable](docs/preview/background.png) |
+| **Dock menu (hold OK)** | **Background menu (paintbrush button)** |
+| ![Side panel with move, remove, hide and app info](docs/preview/dock-menu-v2.png) | ![Background side panel with From your phone](docs/preview/background-menu.png) |
+| **PenDrive Viewer** | **Video player** |
+| ![PenDrive Viewer listing videos](docs/preview/pendrive.png) | ![Player with seek bar and remote hints](docs/preview/player.png) |
 
 ---
 
@@ -48,13 +50,15 @@ No terminal needed. Download the **NLRC Setup** app, point it at your TV, and it
 
 | Pick what to do | Find your TV |
 |---|---|
-| ![NLRC Setup welcome screen with Install and Restore choices](docs/preview/setup-welcome.png) | ![Connect screen listing TVs found on the Wi-Fi](docs/preview/setup-connect.png) |
+| ![NLRC Setup welcome screen with Install, Change the background and Restore](docs/preview/setup-welcome.png) | ![Connect screen listing TVs found on the Wi-Fi](docs/preview/setup-connect.png) |
 | **Install, step by step** | **Done** |
 | ![Install progress checklist](docs/preview/setup-working.png) | ![All set screen](docs/preview/setup-done.png) |
 
 The app works out the right way to make the launcher your home screen for your TV by itself (the Android 14 Google TV way or the Android 9 way), and tells you up front if your TV isn't supported yet. It only works with TVs it can reach over the network. USB is not supported.
 
 The app speaks the same 11 languages as the launcher and follows your computer's language.
+
+Want your own photo behind the home screen? **Change the background** connects to the TV and sends a photo from this computer (see **Your Own Background Photo** below).
 
 Changed your mind? The **Restore** option puts the TV back to how it was and removes the launcher.
 
@@ -178,7 +182,27 @@ Hold **OK** on any tile for a menu:
 
 Choices are saved on the TV and survive reboots and app updates.
 
-### 6. 🌐 11 Languages, No Religion, No Festivals
+### 6. 🖼️ Your Own Background Photo
+Put any photo behind the home screen. It stays sharp; it is dimmed a little and shaded behind the clock, the app name and the dock so text and tiles stay readable on any photo.
+
+**From a phone:** press the paintbrush button, choose **From your phone**, scan the QR code with the phone's camera and pick a photo. A progress bar shows while it sends, and the home screen switches to the new photo straight away.
+
+| On the TV | On the phone |
+|---|---|
+| ![TV screen with a QR code, the address and a 6-digit code](docs/preview/phone-qr.png) | <img src="docs/preview/phone-page.png" alt="Phone page with the code, a photo picker and Set as background" width="260"> |
+
+**From a computer:** in **NLRC Setup**, choose **Change the background**, connect to the TV and pick a photo.
+
+<img src="docs/preview/setup-background.png" alt="NLRC Setup screen to choose a background photo" width="450">
+
+**Back to normal:** the paintbrush menu has **Default background**.
+
+Good to know:
+- The phone (or computer) must be on the same Wi-Fi as the TV. If the page opens but sending fails, the router may block devices from talking to each other ("client isolation" or a guest network).
+- The TV only listens while the QR screen is open (up to 5 minutes), only accepts uploads carrying the 6-digit code it shows, and stops after 5 wrong codes. The photo travels over your home network without encryption.
+- JPG, PNG and WebP photos are sent as they are. Other formats such as iPhone HEIC are converted to JPG by the phone's browser when it can.
+
+### 7. 🌐 11 Languages, No Religion, No Festivals
 The launcher follows the TV's language: English, Portuguese, Spanish, French, Italian, German, Dutch, Russian, Chinese (Simplified), Telugu and Hindi. The home screen shows a simple time-of-day greeting ("Good morning! Welcome") with the clock and date. Unsupported languages fall back to English.
 
 ---
@@ -192,6 +216,8 @@ The launcher follows the TV's language: English, Portuguese, Spanish, French, It
 | [`launcher/.../HdmiHelper.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/HdmiHelper.java) | Direct Realtek / Android TV hardware passthrough input launcher. |
 | [`launcher/.../AppAdapter.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/AppAdapter.java) | App and input tiles, plus the hold-OK menu to pin, reorder and hide tiles. |
 | [`launcher/.../PenDriveActivity.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/PenDriveActivity.java) | Finds videos on TV storage and USB drives and lists them with thumbnails. |
+| [`launcher/.../PhoneUploadActivity.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/PhoneUploadActivity.java) | "From your phone" screen: QR code, one-time code and the small upload receiver ([`WallpaperServer`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/WallpaperServer.java)). |
+| [`launcher/.../WallpaperStore.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/WallpaperStore.java) | Fits, rotates and tones the background photo once when it is saved. |
 | [`launcher/.../VideoPlayerActivity.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/VideoPlayerActivity.java) | Full-screen player with remote seek HUD and previous / next video. |
 | [`launcher/.../Fonts.java`](launcher/app/src/main/java/com/hitmacreed/androidtvdebloater/Fonts.java) | Re-applies font weights on Android 9, where the variable Outfit font otherwise renders Thin. |
 | [`launcher/app/src/main/res/values*/`](launcher/app/src/main/res/) | UI text in 11 languages (`strings.xml` per language). |

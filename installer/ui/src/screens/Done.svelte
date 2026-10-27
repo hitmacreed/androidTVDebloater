@@ -14,6 +14,9 @@
   {#if w.mode === 'install'}
     <h1 class="mt-6 text-3xl font-semibold tracking-tight">{t('done_install_title')}</h1>
     <p class="mt-2 opacity-70">{@html rich(t('done_install_text'))}</p>
+  {:else if w.mode === 'wallpaper'}
+    <h1 class="mt-6 text-3xl font-semibold tracking-tight">{t('done_wallpaper_title')}</h1>
+    <p class="mt-2 opacity-70">{t('done_wallpaper_text')}</p>
   {:else}
     <h1 class="mt-6 text-3xl font-semibold tracking-tight">{t('done_restore_title')}</h1>
     <p class="mt-2 opacity-70">{t('done_restore_text')}</p>

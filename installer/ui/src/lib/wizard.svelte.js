@@ -57,6 +57,7 @@ export function text(err) {
 }
 
 export const scanTvs = () => invoke('scan_tvs');
+export const setWallpaper = (bytes) => invoke('set_wallpaper', { image: Array.from(bytes) });
 export const connectTv = (ip) => invoke('connect_tv', { ip });
 
 listen('step', ({ payload }) => {

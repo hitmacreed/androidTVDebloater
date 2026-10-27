@@ -32,7 +32,7 @@
       try {
         const r = await connectTv(addr);
         tv = r;
-        // Restore runs on any TV; only Install is refused on unsupported ones.
+        // Restore and background changes run on any TV; only Install is refused on unsupported ones.
         if (r.support?.Unsupported !== undefined && w.mode === 'install') unsupported = r.support.Unsupported;
       } catch (e) {
         error = text(e);
@@ -73,7 +73,11 @@
   {:else}
     <div class="mt-10 flex justify-between">
       <button class="btn btn-ghost" onclick={() => go('prepare')}><Icon name="back" class="size-4" /> {t('back')}</button>
-      <button class="btn btn-primary" disabled={w.busy} onclick={() => runFlow(false)}>
+      <button
+        class="btn btn-primary"
+        disabled={w.busy}
+        onclick={() => (w.mode === 'wallpaper' ? go('background') : runFlow(false))}
+      >
         {t('continue')} <Icon name="next" class="size-4" />
       </button>
     </div>

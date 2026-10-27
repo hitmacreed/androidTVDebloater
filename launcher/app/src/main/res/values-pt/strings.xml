@@ -7,7 +7,6 @@
     <string name="live_tv">TV em direto</string>
     <string name="no_inputs">Nenhuma entrada encontrada</string>
     <string name="offline">Sem ligação</string>
-    <string name="nlrc_tagline">Centro de Entretenimento</string>
     <string name="greeting_morning">Bom dia! Bem-vindo</string>
     <string name="greeting_afternoon">Boa tarde! Bem-vindo</string>
     <string name="greeting_evening">Boa noite! Bem-vindo</string>
@@ -50,4 +49,29 @@
     <string name="not_available">Não disponível nesta TV</string>
     <string name="hdmi_switching">A mudar para HDMI 2… 📺</string>
     <string name="hdmi_failed">Não é possível abrir HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Fundo</string>
+    <string name="bg_from_phone">Do telemóvel</string>
+    <string name="bg_default">Fundo predefinido</string>
+    <string name="bg_set">Fundo definido</string>
+    <string name="bg_reset">Fundo predefinido reposto</string>
+    <string name="bg_phone_title">Enviar uma foto do telemóvel</string>
+    <string name="bg_phone_steps">Leia o código com a câmara do telemóvel, ou abra este endereço num telemóvel ligado ao mesmo Wi-Fi da TV:</string>
+    <string name="bg_phone_code">Código: %1$s</string>
+    <string name="bg_phone_waiting">À espera de uma foto…</string>
+    <string name="bg_phone_receiving">A receber a foto…</string>
+    <string name="bg_phone_bad_image">Esse ficheiro não é uma foto que a TV consiga abrir. Experimente um JPG ou PNG.</string>
+    <string name="bg_phone_no_network">Ligue a TV à sua rede para enviar uma foto.</string>
+    <string name="bg_phone_busy">Não foi possível preparar a receção da foto. Feche este ecrã e tente novamente.</string>
+    <string name="web_title">Definir o fundo da TV</string>
+    <string name="web_code">Código mostrado na TV</string>
+    <string name="web_pick">Escolher uma foto</string>
+    <string name="web_send">Definir como fundo</string>
+    <string name="web_sending">A enviar…</string>
+    <string name="web_done">Feito. Olhe para a TV.</string>
+    <string name="web_wrong_code">Código errado. Confirme o código na TV.</string>
+    <string name="web_too_big">Essa foto é demasiado grande. Escolha uma com menos de 20 MB.</string>
+    <string name="web_bad_image">A TV não consegue abrir essa foto. Experimente um JPG ou PNG.</string>
+    <string name="web_failed">Não foi possível enviar a foto. Confirme que o telemóvel está no mesmo Wi-Fi da TV.</string>
 </resources>

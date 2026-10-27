@@ -49,6 +49,7 @@ fn write_private(path: &Path, data: &[u8]) -> std::io::Result<()> {
 
 pub struct AdbTv {
     device: ADBTcpDevice,
+    ip: Ipv4Addr,
 }
 
 impl AdbTv {
@@ -56,7 +57,11 @@ impl AdbTv {
         let device =
             ADBTcpDevice::new_with_custom_private_key(SocketAddr::from((ip, ADB_PORT)), key)
                 .map_err(connection_error)?;
-        Ok(Self { device })
+        Ok(Self { device, ip })
+    }
+
+    pub fn ip(&self) -> Ipv4Addr {
+        self.ip
     }
 }
 

@@ -7,7 +7,6 @@
     <string name="live_tv">ТВ-эфир</string>
     <string name="no_inputs">Входы не найдены</string>
     <string name="offline">Нет сети</string>
-    <string name="nlrc_tagline">Развлекательный центр</string>
     <string name="greeting_morning">Доброе утро! Добро пожаловать</string>
     <string name="greeting_afternoon">Добрый день! Добро пожаловать</string>
     <string name="greeting_evening">Добрый вечер! Добро пожаловать</string>
@@ -50,4 +49,29 @@
     <string name="not_available">Недоступно на этом телевизоре</string>
     <string name="hdmi_switching">Переключение на HDMI 2… 📺</string>
     <string name="hdmi_failed">Не удаётся открыть HDMI 2</string>
+
+    <!-- Background photo -->
+    <string name="background">Фон</string>
+    <string name="bg_from_phone">С телефона</string>
+    <string name="bg_default">Стандартный фон</string>
+    <string name="bg_set">Фон установлен</string>
+    <string name="bg_reset">Стандартный фон восстановлен</string>
+    <string name="bg_phone_title">Отправьте фото с телефона</string>
+    <string name="bg_phone_steps">Отсканируйте код камерой телефона или откройте этот адрес на телефоне в той же сети Wi-Fi, что и телевизор:</string>
+    <string name="bg_phone_code">Код: %1$s</string>
+    <string name="bg_phone_waiting">Ожидание фото…</string>
+    <string name="bg_phone_receiving">Получение фото…</string>
+    <string name="bg_phone_bad_image">Этот файл не является фото, которое может открыть телевизор. Попробуйте JPG или PNG.</string>
+    <string name="bg_phone_no_network">Подключите телевизор к сети, чтобы отправить фото.</string>
+    <string name="bg_phone_busy">Не удалось подготовиться к приёму фото. Закройте этот экран и попробуйте снова.</string>
+    <string name="web_title">Фон телевизора</string>
+    <string name="web_code">Код на экране телевизора</string>
+    <string name="web_pick">Выбрать фото</string>
+    <string name="web_send">Сделать фоном</string>
+    <string name="web_sending">Отправка…</string>
+    <string name="web_done">Готово. Посмотрите на телевизор.</string>
+    <string name="web_wrong_code">Неверный код. Проверьте код на телевизоре.</string>
+    <string name="web_too_big">Фото слишком большое. Выберите фото меньше 20 МБ.</string>
+    <string name="web_bad_image">Телевизор не может открыть это фото. Попробуйте JPG или PNG.</string>
+    <string name="web_failed">Не удалось отправить фото. Проверьте, что телефон в той же сети Wi-Fi, что и телевизор.</string>
 </resources>

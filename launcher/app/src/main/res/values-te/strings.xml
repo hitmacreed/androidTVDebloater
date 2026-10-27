@@ -7,7 +7,6 @@
     <string name="live_tv">లైవ్ టీవీ</string>
     <string name="no_inputs">ఇన్‌పుట్‌లు కనుగొనబడలేదు</string>
     <string name="offline">ఆఫ్‌లైన్</string>
-    <string name="nlrc_tagline">వినోద కేంద్రం</string>
     <string name="greeting_morning">శుభోదయం! స్వాగతం</string>
     <string name="greeting_afternoon">శుభ మధ్యాహ్నం! స్వాగతం</string>
     <string name="greeting_evening">శుభ సాయంత్రం! స్వాగతం</string>
@@ -50,4 +49,29 @@
     <string name="not_available">ఈ టీవీలో అందుబాటులో లేదు</string>
     <string name="hdmi_switching">HDMI 2 కి మారుతోంది… 📺</string>
     <string name="hdmi_failed">HDMI 2 తెరవలేము</string>
+
+    <!-- Background photo -->
+    <string name="background">నేపథ్యం</string>
+    <string name="bg_from_phone">మీ ఫోన్ నుండి</string>
+    <string name="bg_default">డిఫాల్ట్ నేపథ్యం</string>
+    <string name="bg_set">నేపథ్యం సెట్ చేయబడింది</string>
+    <string name="bg_reset">డిఫాల్ట్ నేపథ్యం పునరుద్ధరించబడింది</string>
+    <string name="bg_phone_title">మీ ఫోన్ నుండి ఫోటో పంపండి</string>
+    <string name="bg_phone_steps">మీ ఫోన్ కెమెరాతో కోడ్‌ను స్కాన్ చేయండి, లేదా టీవీ ఉన్న అదే Wi-Fi లో ఉన్న ఫోన్‌లో ఈ చిరునామాను తెరవండి:</string>
+    <string name="bg_phone_code">కోడ్: %1$s</string>
+    <string name="bg_phone_waiting">ఫోటో కోసం వేచి ఉంది…</string>
+    <string name="bg_phone_receiving">ఫోటో అందుకుంటోంది…</string>
+    <string name="bg_phone_bad_image">ఆ ఫైల్ టీవీ తెరవగల ఫోటో కాదు. JPG లేదా PNG ప్రయత్నించండి.</string>
+    <string name="bg_phone_no_network">ఫోటో పంపడానికి టీవీని మీ నెట్‌వర్క్‌కు కనెక్ట్ చేయండి.</string>
+    <string name="bg_phone_busy">ఫోటో అందుకోవడానికి సిద్ధం కాలేకపోయింది. ఈ స్క్రీన్‌ను మూసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="web_title">టీవీ నేపథ్యాన్ని సెట్ చేయండి</string>
+    <string name="web_code">టీవీలో చూపిన కోడ్</string>
+    <string name="web_pick">ఫోటోను ఎంచుకోండి</string>
+    <string name="web_send">నేపథ్యంగా సెట్ చేయండి</string>
+    <string name="web_sending">పంపుతోంది…</string>
+    <string name="web_done">పూర్తయింది. మీ టీవీని చూడండి.</string>
+    <string name="web_wrong_code">తప్పు కోడ్. టీవీలోని కోడ్‌ను తనిఖీ చేయండి.</string>
+    <string name="web_too_big">ఆ ఫోటో చాలా పెద్దది. 20 MB కంటే చిన్నది ఎంచుకోండి.</string>
+    <string name="web_bad_image">టీవీ ఆ ఫోటోను తెరవలేదు. JPG లేదా PNG ప్రయత్నించండి.</string>
+    <string name="web_failed">ఫోటో పంపలేకపోయింది. మీ ఫోన్ టీవీ ఉన్న అదే Wi-Fi లో ఉందో లేదో తనిఖీ చేయండి.</string>
 </resources>

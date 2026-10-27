@@ -67,7 +67,19 @@
     "generic_error": "ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి.",
     "details": "వివరాలు",
     "unsupported_android": "ఈ టీవీ Google TV లేకుండా {android}లో నడుస్తోంది. దీనికి ఇంకా మద్దతు లేదు, కాబట్టి ఏదీ మార్చలేదు.",
-    "api_level": "Android (API స్థాయి {n})"
+    "api_level": "Android (API స్థాయి {n})",
+    "wallpaper_title": "నేపథ్యాన్ని మార్చండి",
+    "wallpaper_text": "మీ ఫోటోలలో ఒకదాన్ని NLRC హోమ్ స్క్రీన్ వెనుక ఉంచండి.",
+    "rail_wallpaper": "నేపథ్యం",
+    "bg_title": "నేపథ్య ఫోటోను ఎంచుకోండి",
+    "bg_lead": "ఫోటో స్పష్టంగానే ఉంటుంది, హోమ్ స్క్రీన్ సులభంగా చదవగలిగేలా కొద్దిగా ముదురుగా చేయబడుతుంది.",
+    "bg_pick": "ఫోటోను ఎంచుకోండి",
+    "bg_change": "మరో ఫోటోను ఎంచుకోండి",
+    "bg_send": "నేపథ్యంగా సెట్ చేయండి",
+    "bg_sending": "ఫోటోను మీ టీవీకి పంపుతోంది…",
+    "bg_bad_file": "ఆ ఫైల్ ఈ యాప్ తెరవగల ఫోటో కాదు. JPG లేదా PNG ప్రయత్నించండి.",
+    "done_wallpaper_title": "నేపథ్యం సెట్ చేయబడింది",
+    "done_wallpaper_text": "మీ టీవీని చూడండి: కొత్త నేపథ్యం హోమ్ స్క్రీన్‌పై ఉంది."
   },
   "backend": {
     "The TV didn't answer. Check it's on, on the same Wi-Fi, and that you chose Always allow on the TV, then press Connect again.": "టీవీ స్పందించలేదు. అది ఆన్‌లో ఉందని, అదే Wi-Fiలో ఉందని, టీవీలో 'ఎల్లప్పుడూ అనుమతించు' ఎంచుకున్నారని చూసి, మళ్లీ 'కనెక్ట్ చేయండి' నొక్కండి.",
@@ -85,6 +97,9 @@
     "This TV has Google TV after all, so nothing was changed on its home screen.": "ఈ టీవీలో నిజానికి Google TV ఉంది, కాబట్టి హోమ్ స్క్రీన్‌లో ఏదీ మార్చలేదు.",
     "We couldn't check this TV's home screen app, so nothing was changed on its home screen.": "ఈ టీవీ హోమ్ స్క్రీన్ యాప్‌ను తనిఖీ చేయలేకపోయాం, కాబట్టి హోమ్ స్క్రీన్‌లో ఏదీ మార్చలేదు.",
     "We couldn't find this TV's home screen app, so it isn't supported yet. Nothing was changed.": "ఈ టీవీ హోమ్ స్క్రీన్ యాప్ కనిపించలేదు, కాబట్టి దీనికి ఇంకా మద్దతు లేదు. ఏదీ మార్చలేదు.",
-    "Couldn't read the TV's Android version": "టీవీ Android వెర్షన్‌ను చదవలేకపోయాం"
+    "Couldn't read the TV's Android version": "టీవీ Android వెర్షన్‌ను చదవలేకపోయాం",
+    "NLRC isn't installed on this TV yet. Install it first, then change the background.": "ఈ టీవీలో NLRC ఇంకా ఇన్‌స్టాల్ కాలేదు. ముందుగా ఇన్‌స్టాల్ చేసి, తర్వాత నేపథ్యాన్ని మార్చండి.",
+    "Couldn't send the photo to the TV. Check that the TV and this computer are on the same Wi-Fi, then try again.": "ఫోటోను టీవీకి పంపలేకపోయింది. టీవీ మరియు ఈ కంప్యూటర్ ఒకే Wi-Fi లో ఉన్నాయో తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి.",
+    "The TV couldn't open that photo. Try a JPG or PNG.": "టీవీ ఆ ఫోటోను తెరవలేకపోయింది. JPG లేదా PNG ప్రయత్నించండి."
   }
 }

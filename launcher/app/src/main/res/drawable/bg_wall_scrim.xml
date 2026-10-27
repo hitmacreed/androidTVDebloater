@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Over a user photo only: darkens the top (clock, greeting, buttons) and the left side (the
+     big app name on the shelf) so text stays readable while the rest of the photo stays bright. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#A6000000"
+                android:centerY="0.28"
+                android:centerColor="#1F000000"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:startColor="#8C000000"
+                android:centerX="0.4"
+                android:centerColor="#26000000"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>

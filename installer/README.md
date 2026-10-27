@@ -131,7 +131,7 @@ cd ../installer && npm run bundle
 
 Use `npm run bundle`, **not** `npm run tauri build`: only the bundle config includes the APK. A plain `tauri build` produces an app with no launcher inside.
 
-CI: [`.github/workflows/installer-release.yml`](../.github/workflows/installer-release.yml) runs on tags `setup-v*`, for example `git tag setup-v2.2.0 && git push --tags`:
+CI: [`.github/workflows/installer-release.yml`](../.github/workflows/installer-release.yml) runs on tags `setup-v*`, for example `git tag setup-v2.3.0 && git push --tags`:
 
 1. It builds a signed release APK. It fails rather than ship an unsigned one.
 2. It bundles the Windows, macOS (universal) and Linux installers.

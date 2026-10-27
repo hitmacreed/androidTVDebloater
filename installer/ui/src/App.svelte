@@ -10,16 +10,18 @@
   import Connect from './screens/Connect.svelte';
   import Working from './screens/Working.svelte';
   import Done from './screens/Done.svelte';
+  import Background from './screens/Background.svelte';
 
-  const SCREENS = { welcome: Welcome, prepare: Prepare, connect: Connect, working: Working, done: Done };
-  const PROGRESS = { prepare: 1, connect: 2, working: 3, done: 4 };
+  const SCREENS = { welcome: Welcome, prepare: Prepare, connect: Connect, working: Working, background: Background, done: Done };
+  const PROGRESS = { prepare: 1, connect: 2, working: 3, background: 3, done: 4 };
+  const RAIL_STEP = { install: 'rail_install', restore: 'rail_restore', wallpaper: 'rail_wallpaper' };
 
   const Screen = $derived(SCREENS[w.screen]);
   const step = $derived(PROGRESS[w.screen] ?? 0);
   const rail = $derived([
     t('rail_prepare'),
     t('rail_connect'),
-    t(w.mode === 'install' ? 'rail_install' : 'rail_restore'),
+    t(RAIL_STEP[w.mode]),
     t('rail_done'),
   ]);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
