@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Soft light across the top of a focused tile, like a lit glass surface. -->
+<!-- Soft light across the top of a focused tile, like a lit glass surface.
+     The angle must be a multiple of 45: Android 9 and older crash the whole home screen otherwise. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <gradient
-        android:angle="300"
+        android:angle="315"
         android:startColor="#4DFFFFFF"
         android:centerColor="#0FFFFFFF"
         android:endColor="#00FFFFFF" />
